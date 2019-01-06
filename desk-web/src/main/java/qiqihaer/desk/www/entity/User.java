@@ -10,6 +10,15 @@ public class User {
     private String userid;
 
     private String college;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
+    }
 
     private String classs;
 

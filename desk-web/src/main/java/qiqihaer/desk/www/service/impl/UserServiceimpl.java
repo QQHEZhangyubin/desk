@@ -16,9 +16,10 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
-    public User login(String userid) {
+    public User login(String userid,String pw) {
         User user = new User();
         user.setUserid(userid);
+        user.setPassword(pw);
         return userMapper.selectOne(user);
     }
 

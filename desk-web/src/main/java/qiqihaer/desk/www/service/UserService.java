@@ -10,7 +10,7 @@ public interface UserService {
     /*
     用户登陆
      */
-    User login(String userid);
+    User login(String userid,String pw);
     /*
     根据学生id查询
      */
