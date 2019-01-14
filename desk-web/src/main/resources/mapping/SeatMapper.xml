@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="qiqihaer.desk.www.dao.SeatMapper" >
+  <!--
+  <resultMap id="BaseResultMap" type="qiqihaer.desk.www.entity.Seat" >
+    <id column="seatid" property="seatid" jdbcType="INTEGER" />
+    <result column="location" property="location" jdbcType="CHAR" />
+    <result column="classroom" property="classroom" jdbcType="CHAR" />
+    <result column="seatNumber" property="seatnumber" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    seatid, location, classroom, seatNumber, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from seat
+    where seatid = #{seatid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from seat
+    where seatid = #{seatid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="qiqihaer.desk.www.entity.Seat" >
+    insert into seat (seatid, location, classroom, 
+      seatNumber, state)
+    values (#{seatid,jdbcType=INTEGER}, #{location,jdbcType=CHAR}, #{classroom,jdbcType=CHAR}, 
+      #{seatnumber,jdbcType=INTEGER}, #{state,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="qiqihaer.desk.www.entity.Seat" >
+    insert into seat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seatid != null" >
+        seatid,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="classroom != null" >
+        classroom,
+      </if>
+      <if test="seatnumber != null" >
+        seatNumber,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seatid != null" >
+        #{seatid,jdbcType=INTEGER},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=CHAR},
+      </if>
+      <if test="classroom != null" >
+        #{classroom,jdbcType=CHAR},
+      </if>
+      <if test="seatnumber != null" >
+        #{seatnumber,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="qiqihaer.desk.www.entity.Seat" >
+    update seat
+    <set >
+      <if test="location != null" >
+        location = #{location,jdbcType=CHAR},
+      </if>
+      <if test="classroom != null" >
+        classroom = #{classroom,jdbcType=CHAR},
+      </if>
+      <if test="seatnumber != null" >
+        seatNumber = #{seatnumber,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=CHAR},
+      </if>
+    </set>
+    where seatid = #{seatid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="qiqihaer.desk.www.entity.Seat" >
+    update seat
+    set location = #{location,jdbcType=CHAR},
+      classroom = #{classroom,jdbcType=CHAR},
+      seatNumber = #{seatnumber,jdbcType=INTEGER},
+      state = #{state,jdbcType=CHAR}
+    where seatid = #{seatid,jdbcType=INTEGER}
+  </update>
+  -->
+</mapper>
