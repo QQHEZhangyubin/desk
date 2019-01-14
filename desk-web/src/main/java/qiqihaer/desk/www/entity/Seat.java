@@ -21,6 +21,7 @@ public class Seat {
         return seatid;
     }
 
+
     public void setSeatid(Integer seatid) {
         this.seatid = seatid;
     }

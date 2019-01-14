@@ -13,6 +13,7 @@ public class SeatServiceimpl implements SeatService {
     @Autowired
     private SeatMapper seatMapper;
 
+
     @Override
     public List<Seat> QueryEmptySeat(String location, String classroom) {
         Seat seat = new Seat();

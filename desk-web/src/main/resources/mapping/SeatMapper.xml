@@ -71,6 +71,7 @@
       <if test="location != null" >
         location = #{location,jdbcType=CHAR},
       </if>
+
       <if test="classroom != null" >
         classroom = #{classroom,jdbcType=CHAR},
       </if>

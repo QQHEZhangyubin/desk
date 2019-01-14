@@ -28,6 +28,7 @@ public class SeatController {
         List<Seat> seats = seatService.QueryEmptySeat("东区", "101");
         logger.info("查询空位置成功");
         return seats;
+
     }
 
     @RequestMapping("/chooseseat")
