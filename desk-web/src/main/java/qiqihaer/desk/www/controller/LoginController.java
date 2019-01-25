@@ -31,10 +31,14 @@ public class LoginController {
         User user = userService.login("2016021053",password);
         if (user!=null){
             log.info("用户登录登录成功");
-            map.put("login","success");
+
+            map.put("data",user);
+            map.put("error_code",0);
         }else {
             log.info("用户登录登录失败");
-            map.put("login","fail");
+
+            map.put("data",user);
+            map.put("error_code",1);
         }
         return map;
     }

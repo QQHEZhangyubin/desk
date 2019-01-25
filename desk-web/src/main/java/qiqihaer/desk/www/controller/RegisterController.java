@@ -19,10 +19,6 @@ public class RegisterController {
     private final static Logger log = Logger.getLogger(RegisterController.class);
     @Autowired
     private UserService userService;
-    @RequestMapping("/kk")
-    public void  Print(){
-        System.out.println("GGG");
-    }
     @RequestMapping("/doRegister")
     @ResponseBody
     public Map<String,Object> doRegister(Model model, @RequestParam(value = "userid",required = false) String userid,
