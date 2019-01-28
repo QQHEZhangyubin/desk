@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import java.util.Date;
 
 public class UserContent {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long iduserContent;

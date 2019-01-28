@@ -84,6 +84,7 @@ public class TalkController {
             if (e.getContentImg6() != null){
                 urls.add(e.getContentImg6());
             }
+
             bean.setEPicture(urls);
             mDatas.add(bean);
         }

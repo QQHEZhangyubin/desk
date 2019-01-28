@@ -20,6 +20,7 @@ public class TestEntity {
     }
 
     public static class BodyBean {
+
         private List<EListBean> eList;
 
         public List<EListBean> getEList() {
