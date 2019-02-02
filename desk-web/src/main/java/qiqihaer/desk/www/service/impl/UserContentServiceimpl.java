@@ -23,7 +23,6 @@ public class UserContentServiceimpl implements UserContentService {
 
     @Override
     public int AddShuoShuo(UserContent userContent) {
-
         return userContentMapper.insert(userContent);
     }
 }
