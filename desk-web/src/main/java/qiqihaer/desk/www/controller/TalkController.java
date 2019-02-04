@@ -6,9 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import qiqihaer.desk.www.entity.TestEntity;
-import qiqihaer.desk.www.entity.UserContent;
+import qiqihaer.desk.www.entity.*;
+import qiqihaer.desk.www.entitytmp.CommentBean;
+import qiqihaer.desk.www.entitytmp.CommentDetailBean;
+import qiqihaer.desk.www.entitytmp.ReplyDetailBean;
 import qiqihaer.desk.www.service.UserContentService;
+import qiqihaer.desk.www.service.UserService;
 
 import java.util.*;
 
@@ -17,6 +20,8 @@ import java.util.*;
 public class TalkController {
     @Autowired
     private UserContentService userContentService;
+    @Autowired
+    private UserService userService;
     @RequestMapping("/add")
     @ResponseBody
     public Map<String,Object> AddShuoShuo(Model model,
@@ -89,6 +94,55 @@ public class TalkController {
             mDatas.add(bean);
         }
         return  mDatas;
+    }
+
+    //得到该说说的全部评论，以及每个评论的字评论
+    @RequestMapping("/request2")
+    @ResponseBody
+    public CommentBean Request2(Model model,
+                                @RequestParam(value = "iduser_content",required = false) String iduser_content){
+
+        CommentBean commentBean = new CommentBean();
+        UserContent userContent = new UserContent();
+        //iduser_content = Long.valueOf(10);//该说说的唯一标示
+        userContent.setIduserContent(Long.valueOf("10"));
+        commentBean.setCode(200);
+        List<Comment> comments = userContentService.PullThis(userContent);
+        if (comments != null && comments.size() > 0){
+            List<CommentDetailBean> co = new ArrayList<>();
+            for (Comment c: comments){
+                List<ReplyDetailBean> lo = new ArrayList<>();
+                User C_user = userService.findById(c.getuId());//得到评论该说说的用户
+                CommentDetailBean commentDetailBean = new CommentDetailBean(C_user.getUserid(),c.getContent(),c.getCreateDate()+"");
+                commentDetailBean.setUserLogo(C_user.getUserLogo());
+                commentDetailBean.setImId("imid");
+                commentDetailBean.setId(c.getId());
+                List<Reply> replies = userContentService.PullThese(c);
+                if (replies != null && replies.size() > 0){
+                    for (Reply r : replies){
+                        User R_user = userService.findById(r.getReplyUId());//得到回复该评论的用户
+                        ReplyDetailBean replyDetailBean = new ReplyDetailBean(R_user.getUserid(),r.getReplyContent());
+                        replyDetailBean.setCreateDate(r.getReplyDate()+"");
+                        replyDetailBean.setStatus("200");
+                        replyDetailBean.setId(r.getReplyId());
+                        replyDetailBean.setUserLogo(R_user.getUserLogo());
+                        replyDetailBean.setCommentId(r.getReplyComId()+"");
+                        lo.add(replyDetailBean);
+                    }
+                }
+                commentDetailBean.setReplyToal(replies.size());
+                commentDetailBean.setReplyDetailBeans(lo);
+                co.add(commentDetailBean);
+            }
+            CommentBean.Data d = new CommentBean.Data();
+            d.setList(co);
+            d.setTotal(co.size());
+            commentBean.setData(d);
+            commentBean.setMessage("success");
+        }else {
+            System.out.println("该说说没有评论！");
+        }
+        return commentBean;
     }
 
 

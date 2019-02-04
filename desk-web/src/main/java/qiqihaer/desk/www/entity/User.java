@@ -11,6 +11,15 @@ public class User {
 
     private String college;
     private String password;
+    private String userLogo;
+
+    public String getUserLogo() {
+        return userLogo;
+    }
+
+    public void setUserLogo(String userLogo) {
+        this.userLogo = userLogo;
+    }
 
     public String getPassword() {
         return password;
