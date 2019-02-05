@@ -66,7 +66,7 @@ public class TalkController {
         for (UserContent e:elist) {
             TestEntity.BodyBean.EListBean bean = new TestEntity.BodyBean.EListBean();
             List<String> urls = new ArrayList<>();
-            bean.setBrowser(e.getContentBrower()+"");
+            bean.setBrowser(e.getIduserContent()+"");
             bean.setPicture(e.getContentImg1());
             bean.setTime(e.getContentDate()+"");
             bean.setContent(e.getContentText());
@@ -102,10 +102,11 @@ public class TalkController {
     public CommentBean Request2(Model model,
                                 @RequestParam(value = "iduser_content",required = false) String iduser_content){
 
+        System.out.println("请求的说说标识："+iduser_content);
         CommentBean commentBean = new CommentBean();
         UserContent userContent = new UserContent();
         //iduser_content = Long.valueOf(10);//该说说的唯一标示
-        userContent.setIduserContent(Long.valueOf("10"));
+        userContent.setIduserContent(Long.valueOf(iduser_content));
         commentBean.setCode(200);
         List<Comment> comments = userContentService.PullThis(userContent);
         if (comments != null && comments.size() > 0){

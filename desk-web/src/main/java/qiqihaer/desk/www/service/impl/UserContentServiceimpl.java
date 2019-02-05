@@ -25,7 +25,7 @@ public class UserContentServiceimpl implements UserContentService {
     @Override
     public List<UserContent> PullDownAll() {
         UserContent userContent = new UserContent();
-        RowBounds rowBounds = new RowBounds(1,100);
+        RowBounds rowBounds = new RowBounds(0,100);
         List<UserContent> userContents = userContentMapper.selectByRowBounds(userContent,rowBounds );
         return userContents;
     }
