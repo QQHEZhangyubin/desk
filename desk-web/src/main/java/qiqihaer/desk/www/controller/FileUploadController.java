@@ -109,6 +109,7 @@ public class FileUploadController {
     @ResponseBody
     public String imageUpload(@RequestParam("file") MultipartFile[] multipartFiles,
                               String data){
+        System.out.println(data);
         userContent = new UserContent();
         userContent.setUserId("2016021051");
         userContent.setContentText(data);

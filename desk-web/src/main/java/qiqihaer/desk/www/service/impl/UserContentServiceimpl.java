@@ -32,6 +32,9 @@ public class UserContentServiceimpl implements UserContentService {
 
     @Override
     public int AddShuoShuo(UserContent userContent) {
+        int contentcount = userContentMapper.selectCount(new UserContent());
+        contentcount++;
+        userContent.setIduserContent(Long.valueOf(contentcount+""));
         return userContentMapper.insert(userContent);
     }
 
