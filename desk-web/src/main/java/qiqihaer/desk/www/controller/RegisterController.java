@@ -29,19 +29,20 @@ public class RegisterController {
                                          @RequestParam(value = "email",required = false) String email,
                                          @RequestParam(value = "gender",required = false) String gender){
         log.debug("注册....");
+        System.out.println("userid = " + userid);
         Map map = new HashMap<String,Object>();
-        User user = userService.findById("2016021053");
+        User user = userService.findById(userid);
         if (user!=null){
             map.put("message","existed");
         }else {
             User user1 = new User();
-            user1.setUserid("2016021053");
-            user1.setCollege("计算机与控制工程学院");
-            user1.setClasss("软件161");
-            user1.setPassword(MD5Util.encodeToHex("11zhangyubin"));
-            user1.setBirthday("1998/10/23");
-            user1.setEmail("13608428279@163.com");
-            user1.setGender("男");
+            user1.setUserid(userid);
+            user1.setCollege(college);
+            user1.setClasss(classs);
+            user1.setPassword(MD5Util.encodeToHex(password));
+            user1.setBirthday(birthday);
+            user1.setEmail(email);
+            user1.setGender(gender);
             userService.regist(user1);
             log.info("注册成功");
             map.put("message","success");

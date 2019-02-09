@@ -102,21 +102,20 @@ public class FileUploadController {
     /**
      * 移动端上传，服务端接受
      * @param multipartFiles
-     * @param data
+     * @param data2
      * @return
      */
-    @RequestMapping(value = "/upload",method = RequestMethod.POST)
+    @RequestMapping(value = "/upload")
     @ResponseBody
-    public String imageUpload(@RequestParam("file") MultipartFile[] multipartFiles,
-                              String data){
-        System.out.println(data);
+    public String imageUpload(@RequestParam("file2") MultipartFile[] multipartFiles,
+                              String data2){
         userContent = new UserContent();
-        userContent.setUserId("2016021051");
-        userContent.setContentText(data);
+        userContent.setUserId("2016021053");
+        userContent.setContentText(data2);
         userContent.setContentDate(new Date());
         userContent.setContentBrower(new Random(1).nextInt(100));
         try{
-            System.out.println(data);
+            System.out.println(data2);
             if (multipartFiles != null && multipartFiles.length > 0){
                 for (int i = 0; i <multipartFiles.length ; i++) {
                     MultipartFile partFile = multipartFiles[i];
