@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import qiqihaer.desk.www.entity.Seat;
+import qiqihaer.desk.www.entitytmp.SeatTwo;
 import qiqihaer.desk.www.service.SeatService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,11 +22,28 @@ public class SeatController {
     private final static  Logger logger = Logger.getLogger(SeatController.class);
     @Autowired
     private SeatService seatService;
+
+    @RequestMapping("/queryseatinfo")
+    @ResponseBody
+    public List<SeatTwo> QuerySeatInfo(Model model){
+        //TODO:根据每个房间位置和号码，查询该房间位置总数，可用数，房间名字，返回给移动端
+        List<SeatTwo> seatTwos = new ArrayList<>();
+        List<Seat> seats = seatService.QueryEmptySeat("东区", "101");
+        int total_seat = seats.size();//东区101的所有位置数
+        int avail_seat = seatService.QueryEmptyS("东区","101","c");//东区101座位状态可用的总数
+        SeatTwo seatTwo = new SeatTwo(total_seat+"",avail_seat+"","东区101");
+        seatTwos.add(seatTwo);
+        return seatTwos;
+
+    }
+
+
     @RequestMapping("/queryempteyseat")
     @ResponseBody
     public List<Seat> QueryEmpteySeat(Model model,
                                               @RequestParam(value = "location",required = false) String location,
                                               @RequestParam(value = "classroom",required = false) String classroom){
+
         List<Seat> seats = seatService.QueryEmptySeat("东区", "101");
         logger.info("查询空位置成功");
         return seats;

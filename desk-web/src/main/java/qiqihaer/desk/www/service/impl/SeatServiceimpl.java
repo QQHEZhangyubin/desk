@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qiqihaer.desk.www.dao.SeatMapper;
 import qiqihaer.desk.www.entity.Seat;
+import qiqihaer.desk.www.entitytmp.SeatTwo;
 import qiqihaer.desk.www.service.SeatService;
 
 import java.util.List;
@@ -36,4 +37,15 @@ public class SeatServiceimpl implements SeatService {
         seat.setSeatnumber(seatnumber);
         return seatMapper.selectOne(seat);
     }
+
+    @Override
+    public int QueryEmptyS(String location, String classromm, String status) {
+        Seat seat = new Seat();
+        seat.setState(status);
+        seat.setClassroom(classromm);
+        seat.setLocation(location);
+        int avail_seat = seatMapper.selectCount(seat);
+        return avail_seat;
+    }
+
 }
