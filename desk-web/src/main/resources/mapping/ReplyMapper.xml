@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="QiQihar.IDao.ReplyMapper" >
+  <!--
+  <resultMap id="BaseResultMap" type="QiQihar.domain.Reply" >
+    <id column="reply_id" property="replyId" jdbcType="INTEGER" />
+    <result column="reply_com_id" property="replyComId" jdbcType="INTEGER" />
+    <result column="reply_u_id" property="replyUId" jdbcType="VARCHAR" />
+    <result column="reply_date" property="replyDate" jdbcType="TIMESTAMP" />
+    <result column="reply_content" property="replyContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    reply_id, reply_com_id, reply_u_id, reply_date, reply_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from reply
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from reply
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="QiQihar.domain.Reply" >
+    insert into reply (reply_id, reply_com_id, reply_u_id, 
+      reply_date, reply_content)
+    values (#{replyId,jdbcType=INTEGER}, #{replyComId,jdbcType=INTEGER}, #{replyUId,jdbcType=VARCHAR}, 
+      #{replyDate,jdbcType=TIMESTAMP}, #{replyContent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="QiQihar.domain.Reply" >
+    insert into reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        reply_id,
+      </if>
+      <if test="replyComId != null" >
+        reply_com_id,
+      </if>
+      <if test="replyUId != null" >
+        reply_u_id,
+      </if>
+      <if test="replyDate != null" >
+        reply_date,
+      </if>
+      <if test="replyContent != null" >
+        reply_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        #{replyId,jdbcType=INTEGER},
+      </if>
+      <if test="replyComId != null" >
+        #{replyComId,jdbcType=INTEGER},
+      </if>
+      <if test="replyUId != null" >
+        #{replyUId,jdbcType=VARCHAR},
+      </if>
+      <if test="replyDate != null" >
+        #{replyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyContent != null" >
+        #{replyContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="QiQihar.domain.Reply" >
+    update reply
+    <set >
+      <if test="replyComId != null" >
+        reply_com_id = #{replyComId,jdbcType=INTEGER},
+      </if>
+      <if test="replyUId != null" >
+        reply_u_id = #{replyUId,jdbcType=VARCHAR},
+      </if>
+      <if test="replyDate != null" >
+        reply_date = #{replyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyContent != null" >
+        reply_content = #{replyContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="QiQihar.domain.Reply" >
+    update reply
+    set reply_com_id = #{replyComId,jdbcType=INTEGER},
+      reply_u_id = #{replyUId,jdbcType=VARCHAR},
+      reply_date = #{replyDate,jdbcType=TIMESTAMP},
+      reply_content = #{replyContent,jdbcType=VARCHAR}
+    where reply_id = #{replyId,jdbcType=INTEGER}
+  </update>
+  -->
+</mapper>
