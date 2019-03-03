@@ -13,14 +13,13 @@ public class Seat {
 
     private String classroom;
 
-    private Integer seatnumber;
+    private String seatnumber;
 
     private String state;
 
     public Integer getSeatid() {
         return seatid;
     }
-
 
     public void setSeatid(Integer seatid) {
         this.seatid = seatid;
@@ -42,12 +41,12 @@ public class Seat {
         this.classroom = classroom == null ? null : classroom.trim();
     }
 
-    public Integer getSeatnumber() {
+    public String getSeatnumber() {
         return seatnumber;
     }
 
-    public void setSeatnumber(Integer seatnumber) {
-        this.seatnumber = seatnumber;
+    public void setSeatnumber(String seatnumber) {
+        this.seatnumber = seatnumber == null ? null : seatnumber.trim();
     }
 
     public String getState() {

@@ -10,32 +10,18 @@ public class User {
     private String userid;
 
     private String college;
-    private String password;
-    private String userLogo;
-
-    public String getUserLogo() {
-        return userLogo;
-    }
-
-    public void setUserLogo(String userLogo) {
-        this.userLogo = userLogo;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
-    }
 
     private String classs;
+
+    private String password;
 
     private String birthday;
 
     private String email;
 
     private String gender;
+
+    private String userlogo;
 
     public String getUserid() {
         return userid;
@@ -53,12 +39,20 @@ public class User {
         this.college = college == null ? null : college.trim();
     }
 
-    public String getClassss() {
+    public String getClasss() {
         return classs;
     }
 
     public void setClasss(String classs) {
         this.classs = classs == null ? null : classs.trim();
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
     public String getBirthday() {
@@ -83,5 +77,13 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender == null ? null : gender.trim();
+    }
+
+    public String getUserlogo() {
+        return userlogo;
+    }
+
+    public void setUserlogo(String userlogo) {
+        this.userlogo = userlogo == null ? null : userlogo.trim();
     }
 }

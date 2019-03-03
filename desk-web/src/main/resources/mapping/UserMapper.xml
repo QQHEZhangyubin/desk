@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="qiqihaer.desk.www.dao.UserMapper" >
+<mapper namespace="QiQihar.IDao.UserMapper" >
   <!--
-  <resultMap id="BaseResultMap" type="qiqihaer.desk.www.entity.User" >
+  <resultMap id="BaseResultMap" type="QiQihar.domain.User" >
     <id column="userid" property="userid" jdbcType="VARCHAR" />
     <result column="college" property="college" jdbcType="VARCHAR" />
     <result column="classs" property="classs" jdbcType="CHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="birthday" property="birthday" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="gender" property="gender" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="user_logo" property="userLogo" jdbcType="VARCHAR" />
+    <result column="userlogo" property="userlogo" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    userid, college, classs, birthday, email, gender, password, user_logo
+    userid, college, classs, password, birthday, email, gender, userlogo
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
@@ -25,15 +25,15 @@
     delete from user
     where userid = #{userid,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="qiqihaer.desk.www.entity.User" >
+  <insert id="insert" parameterType="QiQihar.domain.User" >
     insert into user (userid, college, classs,
-                      birthday, email, gender,
-                      password, user_logo)
+      password, birthday, email,
+      gender, userlogo)
     values (#{userid,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR}, #{classs,jdbcType=CHAR},
-            #{birthday,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR},
-            #{password,jdbcType=VARCHAR}, #{userLogo,jdbcType=VARCHAR})
+      #{password,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+      #{gender,jdbcType=VARCHAR}, #{userlogo,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="qiqihaer.desk.www.entity.User" >
+  <insert id="insertSelective" parameterType="QiQihar.domain.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userid != null" >
@@ -45,6 +45,9 @@
       <if test="classs != null" >
         classs,
       </if>
+      <if test="password != null" >
+        password,
+      </if>
       <if test="birthday != null" >
         birthday,
       </if>
@@ -54,11 +57,8 @@
       <if test="gender != null" >
         gender,
       </if>
-      <if test="password != null" >
-        password,
-      </if>
-      <if test="userLogo != null" >
-        user_logo,
+      <if test="userlogo != null" >
+        userlogo,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -71,6 +71,9 @@
       <if test="classs != null" >
         #{classs,jdbcType=CHAR},
       </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
       <if test="birthday != null" >
         #{birthday,jdbcType=VARCHAR},
       </if>
@@ -80,15 +83,12 @@
       <if test="gender != null" >
         #{gender,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="userLogo != null" >
-        #{userLogo,jdbcType=VARCHAR},
+      <if test="userlogo != null" >
+        #{userlogo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="qiqihaer.desk.www.entity.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="QiQihar.domain.User" >
     update user
     <set >
       <if test="college != null" >
@@ -96,6 +96,9 @@
       </if>
       <if test="classs != null" >
         classs = #{classs,jdbcType=CHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
       </if>
       <if test="birthday != null" >
         birthday = #{birthday,jdbcType=VARCHAR},
@@ -106,24 +109,21 @@
       <if test="gender != null" >
         gender = #{gender,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="userLogo != null" >
-        user_logo = #{userLogo,jdbcType=VARCHAR},
+      <if test="userlogo != null" >
+        userlogo = #{userlogo,jdbcType=VARCHAR},
       </if>
     </set>
     where userid = #{userid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="qiqihaer.desk.www.entity.User" >
+  <update id="updateByPrimaryKey" parameterType="QiQihar.domain.User" >
     update user
     set college = #{college,jdbcType=VARCHAR},
-        classs = #{classs,jdbcType=CHAR},
-        birthday = #{birthday,jdbcType=VARCHAR},
-        email = #{email,jdbcType=VARCHAR},
-        gender = #{gender,jdbcType=VARCHAR},
-        password = #{password,jdbcType=VARCHAR},
-        user_logo = #{userLogo,jdbcType=VARCHAR}
+      classs = #{classs,jdbcType=CHAR},
+      password = #{password,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      userlogo = #{userlogo,jdbcType=VARCHAR}
     where userid = #{userid,jdbcType=VARCHAR}
   </update>
   -->

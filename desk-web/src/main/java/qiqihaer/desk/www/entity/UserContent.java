@@ -29,8 +29,6 @@ public class UserContent {
 
     private Date contentDate;
 
-    private Integer contentBrower;
-
     public Long getIduserContent() {
         return iduserContent;
     }
@@ -109,13 +107,5 @@ public class UserContent {
 
     public void setContentDate(Date contentDate) {
         this.contentDate = contentDate;
-    }
-
-    public Integer getContentBrower() {
-        return contentBrower;
-    }
-
-    public void setContentBrower(Integer contentBrower) {
-        this.contentBrower = contentBrower;
     }
 }

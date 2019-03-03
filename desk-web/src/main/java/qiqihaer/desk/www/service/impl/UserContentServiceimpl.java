@@ -51,7 +51,7 @@ public class UserContentServiceimpl implements UserContentService {
     @Override
     public List<Reply> PullThese(Comment comment) {
         //得到一条评论下的所有回复
-        Integer c_id = comment.getId();//得到该评论的标识
+        Integer c_id = comment.getCommentId();//得到该评论的标识
         Reply reply = new Reply();
         reply.setReplyComId(c_id);
         List<Reply> t1 = replyMapper.select(reply);

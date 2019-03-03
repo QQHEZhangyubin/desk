@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="qiqihaer.desk.www.dao.UserContentMapper" >
+<mapper namespace="QiQihar.IDao.UserContentMapper" >
   <!--
-  <resultMap id="BaseResultMap" type="qiqihaer.desk.www.entity.UserContent" >
+  <resultMap id="BaseResultMap" type="QiQihar.domain.UserContent" >
     <id column="iduser_content" property="iduserContent" jdbcType="BIGINT" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="content_text" property="contentText" jdbcType="VARCHAR" />
@@ -12,35 +12,34 @@
     <result column="content_img4" property="contentImg4" jdbcType="VARCHAR" />
     <result column="content_img5" property="contentImg5" jdbcType="VARCHAR" />
     <result column="content_img6" property="contentImg6" jdbcType="VARCHAR" />
-    <result column="content_Date" property="contentDate" jdbcType="TIMESTAMP" />
-    <result column="content_brower" property="contentBrower" jdbcType="INTEGER" />
+    <result column="content_date" property="contentDate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    iduser_content, user_id, content_text, content_img1, content_img2, content_img3, 
-    content_img4, content_img5, content_img6, content_Date, content_brower
+    iduser_content, user_id, content_text, content_img1, content_img2, content_img3,
+    content_img4, content_img5, content_img6, content_date
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
-    from user_content
+    from usercontent
     where iduser_content = #{iduserContent,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from user_content
+    delete from usercontent
     where iduser_content = #{iduserContent,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="qiqihaer.desk.www.entity.UserContent" >
-    insert into user_content (iduser_content, user_id, content_text, 
-      content_img1, content_img2, content_img3, 
-      content_img4, content_img5, content_img6, 
-      content_Date, content_brower)
-    values (#{iduserContent,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, #{contentText,jdbcType=VARCHAR}, 
-      #{contentImg1,jdbcType=VARCHAR}, #{contentImg2,jdbcType=VARCHAR}, #{contentImg3,jdbcType=VARCHAR}, 
-      #{contentImg4,jdbcType=VARCHAR}, #{contentImg5,jdbcType=VARCHAR}, #{contentImg6,jdbcType=VARCHAR}, 
-      #{contentDate,jdbcType=TIMESTAMP}, #{contentBrower,jdbcType=INTEGER})
+  <insert id="insert" parameterType="QiQihar.domain.UserContent" >
+    insert into usercontent (iduser_content, user_id, content_text,
+      content_img1, content_img2, content_img3,
+      content_img4, content_img5, content_img6,
+      content_date)
+    values (#{iduserContent,jdbcType=BIGINT}, #{userId,jdbcType=VARCHAR}, #{contentText,jdbcType=VARCHAR},
+      #{contentImg1,jdbcType=VARCHAR}, #{contentImg2,jdbcType=VARCHAR}, #{contentImg3,jdbcType=VARCHAR},
+      #{contentImg4,jdbcType=VARCHAR}, #{contentImg5,jdbcType=VARCHAR}, #{contentImg6,jdbcType=VARCHAR},
+      #{contentDate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="qiqihaer.desk.www.entity.UserContent" >
-    insert into user_content
+  <insert id="insertSelective" parameterType="QiQihar.domain.UserContent" >
+    insert into usercontent
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="iduserContent != null" >
         iduser_content,
@@ -70,10 +69,7 @@
         content_img6,
       </if>
       <if test="contentDate != null" >
-        content_Date,
-      </if>
-      <if test="contentBrower != null" >
-        content_brower,
+        content_date,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -107,13 +103,10 @@
       <if test="contentDate != null" >
         #{contentDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="contentBrower != null" >
-        #{contentBrower,jdbcType=INTEGER},
-      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="qiqihaer.desk.www.entity.UserContent" >
-    update user_content
+  <update id="updateByPrimaryKeySelective" parameterType="QiQihar.domain.UserContent" >
+    update usercontent
     <set >
       <if test="userId != null" >
         user_id = #{userId,jdbcType=VARCHAR},
@@ -140,16 +133,13 @@
         content_img6 = #{contentImg6,jdbcType=VARCHAR},
       </if>
       <if test="contentDate != null" >
-        content_Date = #{contentDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="contentBrower != null" >
-        content_brower = #{contentBrower,jdbcType=INTEGER},
+        content_date = #{contentDate,jdbcType=TIMESTAMP},
       </if>
     </set>
     where iduser_content = #{iduserContent,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="qiqihaer.desk.www.entity.UserContent" >
-    update user_content
+  <update id="updateByPrimaryKey" parameterType="QiQihar.domain.UserContent" >
+    update usercontent
     set user_id = #{userId,jdbcType=VARCHAR},
       content_text = #{contentText,jdbcType=VARCHAR},
       content_img1 = #{contentImg1,jdbcType=VARCHAR},
@@ -158,10 +148,8 @@
       content_img4 = #{contentImg4,jdbcType=VARCHAR},
       content_img5 = #{contentImg5,jdbcType=VARCHAR},
       content_img6 = #{contentImg6,jdbcType=VARCHAR},
-      content_Date = #{contentDate,jdbcType=TIMESTAMP},
-      content_brower = #{contentBrower,jdbcType=INTEGER}
+      content_date = #{contentDate,jdbcType=TIMESTAMP}
     where iduser_content = #{iduserContent,jdbcType=BIGINT}
   </update>
   -->
-
 </mapper>
