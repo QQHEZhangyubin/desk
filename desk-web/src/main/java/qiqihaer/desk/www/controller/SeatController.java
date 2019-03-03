@@ -19,6 +19,7 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/seat")
 public class SeatController {
+
     private final static  Logger logger = Logger.getLogger(SeatController.class);
     @Autowired
     private SeatService seatService;
