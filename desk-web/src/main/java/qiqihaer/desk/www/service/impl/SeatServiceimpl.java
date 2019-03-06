@@ -34,7 +34,7 @@ public class SeatServiceimpl implements SeatService {
         Seat seat = new Seat();
         seat.setLocation(location);
         seat.setClassroom(classroom);
-        seat.setSeatnumber(seatnumber);
+        seat.setSeatnumber(seatnumber+"");
         return seatMapper.selectOne(seat);
     }
 

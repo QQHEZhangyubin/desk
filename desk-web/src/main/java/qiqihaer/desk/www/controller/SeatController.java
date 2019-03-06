@@ -35,7 +35,6 @@ public class SeatController {
         SeatTwo seatTwo = new SeatTwo(total_seat+"",avail_seat+"","东区101");
         seatTwos.add(seatTwo);
         return seatTwos;
-
     }
 
 

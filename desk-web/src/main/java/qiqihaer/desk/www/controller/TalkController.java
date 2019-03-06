@@ -37,9 +37,8 @@ public class TalkController {
                                   @RequestParam(value = "contentDate",required = false) Date contentDate){
         Map map = new HashMap<String,Object>();
         UserContent userContent = new UserContent();
-        userContent.setUserId("2016021052");
-        userContent.setContentBrower(130);
-        userContent.setContentText("fckgh;guoliuhiougihiib");
+        userContent.setUserId(userId);
+        userContent.setContentText(contentText);
         userContent.setContentDate(new Date());
         userContent.setContentImg1(contentImg1);
         userContent.setContentImg2(contentImg2);
@@ -115,9 +114,9 @@ public class TalkController {
                 List<ReplyDetailBean> lo = new ArrayList<>();
                 User C_user = userService.findById(c.getuId());//得到评论该说说的用户
                 CommentDetailBean commentDetailBean = new CommentDetailBean(C_user.getUserid(),c.getContent(),c.getCreateDate()+"");
-                commentDetailBean.setUserLogo(C_user.getUserLogo());
+                commentDetailBean.setUserLogo(C_user.getUserlogo());
                 commentDetailBean.setImId("imid");
-                commentDetailBean.setId(c.getId());
+                commentDetailBean.setId(c.getCommentId());
                 List<Reply> replies = userContentService.PullThese(c);
                 if (replies != null && replies.size() > 0){
                     for (Reply r : replies){
@@ -126,7 +125,7 @@ public class TalkController {
                         replyDetailBean.setCreateDate(r.getReplyDate()+"");
                         replyDetailBean.setStatus("200");
                         replyDetailBean.setId(r.getReplyId());
-                        replyDetailBean.setUserLogo(R_user.getUserLogo());
+                        replyDetailBean.setUserLogo(R_user.getUserlogo());
                         replyDetailBean.setCommentId(r.getReplyComId()+"");
                         lo.add(replyDetailBean);
                     }

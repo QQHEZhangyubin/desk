@@ -1,7 +1,26 @@
 <%@ page language="java" contentType="text/html; charset = UTF-8" pageEncoding="UTF-8" %>
 <html>
 <body>
-<h2>Hello World!</h2>
+<h2>注册--测试</h2>
+<!--
+<form action="doRegister" method="post">
+    学号：<input type="text" name="userid"/><br>
+    学院：<input type="text" name="college"/><br>
+    密码：<input type="text" name="password"/><br>
+    专业班级：<input type="text" name="classs"/><br>
+    生日：<input type="text" name="birthday"/><br>
+    邮箱：<input type="text" name="email"/><br>
+    性别：<input type="text" name="gender"/><br>
+    <input type="submit" vaue="测试">
+</form>
+-->
+<!--
+<form action="login" method="post">
+    学号：<input type="text" name="userid"/><br>
+    密码：<input type="text" name="password"/><br>
+    <input type="submit" vaue="测试">
+</form>
+-->
 <form action="regist" method="post" enctype="multipart/form-data">
     学号：<input type="text" name="userId"/><br>
     文本：<input type="text" name="contentText"/><br>
