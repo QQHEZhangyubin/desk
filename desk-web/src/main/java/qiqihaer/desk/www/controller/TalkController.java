@@ -13,6 +13,7 @@ import qiqihaer.desk.www.entitytmp.ReplyDetailBean;
 import qiqihaer.desk.www.service.UserContentService;
 import qiqihaer.desk.www.service.UserService;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -65,9 +66,17 @@ public class TalkController {
         for (UserContent e:elist) {
             TestEntity.BodyBean.EListBean bean = new TestEntity.BodyBean.EListBean();
             List<String> urls = new ArrayList<>();
-            bean.setBrowser(e.getIduserContent()+"");
-            bean.setPicture(e.getContentImg1());
-            bean.setTime(e.getContentDate()+"");
+            bean.setBrowser(e.getIduserContent()+"");//设置说说的id标识
+
+            //设置发说说人的头像
+            String userid = e.getUserId();
+            User u1 = userService.findById(userid);
+            bean.setPicture(u1.getUserlogo());
+
+            //SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            bean.setTime(e.getContentDate()+"");//时间需要转变格式
+            //formatter.format(e.getContentDate());
+
             bean.setContent(e.getContentText());
             bean.setUserName(e.getUserId());
             if (e.getContentImg1() != null){
