@@ -31,6 +31,7 @@ public class SeatServiceimpl implements SeatService {
 
     @Override
     public Seat QuerySpecial(String location, String classroom, Integer seatnumber) {
+        //根据location，clssroom,seatnumber找到当前座位
         Seat seat = new Seat();
         seat.setLocation(location);
         seat.setClassroom(classroom);
@@ -46,6 +47,13 @@ public class SeatServiceimpl implements SeatService {
         seat.setLocation(location);
         int avail_seat = seatMapper.selectCount(seat);
         return avail_seat;
+    }
+
+    @Override
+    public Seat findSeatbyid(Integer seatid) {
+        Seat seat = new Seat();
+        seat.setSeatid(seatid);
+        return seatMapper.selectOne(seat);
     }
 
 }

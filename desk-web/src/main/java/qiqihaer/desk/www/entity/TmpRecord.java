@@ -15,6 +15,7 @@ public class TmpRecord {
     private Date starttime;
 
     private String status;
+    private String username2;
 
     public Integer getTmprecordid() {
         return tmprecordid;
@@ -46,5 +47,12 @@ public class TmpRecord {
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+    public String getUsername2() {
+        return username2;
+    }
+
+    public void setUsername2(String username2) {
+        this.username2 = username2 == null ? null : username2.trim();
     }
 }

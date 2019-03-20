@@ -50,9 +50,42 @@
     <input type="submit" vaue="测试">
 </form>
 -->
+<!--
 <form action="talk/request2" method="post">
 说说id：<input type="text" name="iduser_content"/><br>
 <input type="submit" vaue="测试">
 </form>
+-->
+<!--
+<form action="seat/chooseseat" method="post">
+   学号：<input type="text" name="userid"/><br>
+    校区：<input type="text" name="location"/><br>
+    房间：<input type="text" name="classroom"/><br>
+    座位号：<input type="text" name="seatnumber"/><br>
+    <input type="submit" vaue="测试">
+</form>
+-->
+<!--
+<form action="seat/changestatus" method="post">
+    校区：<input type="text" name="location"/><br>
+    房间：<input type="text" name="classroom"/><br>
+    座位号：<input type="text" name="seatnumber"/><br>
+    <input type="submit" vaue="测试">
+</form>
+-->
+<!--
+<form action="seat/enduse" method="post">
+    校区：<input type="text" name="location"/><br>
+    房间：<input type="text" name="classroom"/><br>
+    座位号：<input type="text" name="seatnumber"/><br>
+    <input type="submit" vaue="测试">
+</form>
+-->
+
+<form action="seat/seemystate" method="post">
+    学号：<input type="text" name="userid"/><br>
+    <input type="submit" vaue="测试">
+</form>
+
 </body>
 </html>
