@@ -15,4 +15,9 @@ public interface UserService {
     根据学生id查询
      */
     User findById(String userid);
+
+    /**
+     * 更新user对象
+     */
+    int updateU(User user);
 }

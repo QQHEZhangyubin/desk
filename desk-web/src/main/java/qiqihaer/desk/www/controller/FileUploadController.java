@@ -7,8 +7,11 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.multipart.MultipartFile;
 import qiqihaer.desk.www.entity.Filetmp;
+import qiqihaer.desk.www.entity.User;
 import qiqihaer.desk.www.entity.UserContent;
+import qiqihaer.desk.www.entitytmp.Filetmp2;
 import qiqihaer.desk.www.service.UserContentService;
+import qiqihaer.desk.www.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -23,6 +26,32 @@ public class FileUploadController {
     private UserContentService userContentService;
     private static final String baseUrl = "http://localhost:8080/photo/";
     private UserContent userContent;
+    @Autowired
+    private UserService userService;
+    @RequestMapping("touxiang")
+    @ResponseBody
+    public HashMap<String,Object> regist2(HttpServletRequest request,
+                                         @ModelAttribute Filetmp2 file,
+                                         Model model) throws Exception, IOException{
+        HashMap<String, Object> map = new HashMap<>();
+        String userId = file.getUserid();
+        System.out.println(userId);
+        User u = userService.findById(userId);
+        String filename = file.getTouxiangimg().getOriginalFilename();
+        //System.out.println(filename);
+        //将上传文件保存到一个目标文件中
+        file.getTouxiangimg().transferTo(new File("E:\\picture",filename));
+        System.out.println(baseUrl+filename);
+        u.setUserlogo(baseUrl + filename);
+        int k = userService.updateU(u);
+        System.out.println(k+"");
+        if (k == 1){
+            map.put("status",2);
+        }else {
+            map.put("status",3);
+        }
+        return map;
+    }
 
     /**
      * pc端上传，服务端接受
@@ -39,10 +68,6 @@ public class FileUploadController {
                           @ModelAttribute Filetmp file,
                           Model model) throws Exception, IOException{
         //TODO:将上传文件放到E盘的picture文件夹里面，得到访问该图片的虚拟路径，存到数据库里面
-        //注意：从Tomcat本地文件夹下启动Tomcat
-        // http://localhost:8080/ROOT/pp/a.jpg
-        // http://localhost:8080/ROOT/pp/8.jpg
-        // http://localhost:8080/desk_web_war/seat/queryempteyseat
         // http://localhost:8080/desk_web_war/talk/request
         HashMap<String, Object> map = new HashMap<>();
         String userId = file.getUserId();
@@ -143,5 +168,36 @@ public class FileUploadController {
            e.printStackTrace();
         }
         return "{\"status\":-1,\"desc\":\"失败\"}";
+    }
+
+    /**
+     * 移动端上传头像
+     * @param multipartFile
+     * @param userid
+     * @return
+     */
+    @RequestMapping(value = "/uploadtouxiang")
+    @ResponseBody
+    public HashMap<String,Object>  uploadTouxiang(@RequestParam(value = "touxiangfile") MultipartFile multipartFile,
+                                 @RequestParam(value = "userid") String userid){
+        HashMap<String, Object> map = new HashMap<>();
+        System.out.println(userid);
+        User u = userService.findById(userid);
+        String filename = multipartFile.getOriginalFilename();
+        //将上传文件保存到一个目标文件中
+        try {
+            multipartFile.transferTo(new File("E:\\picture",filename));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(baseUrl+filename);
+        u.setUserlogo(baseUrl + filename);
+        int k = userService.updateU(u);
+        if (k == 1){
+            map.put("status","上传头像成功");
+        }else {
+            map.put("status","上传头像失败");
+        }
+        return map;
     }
 }

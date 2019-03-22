@@ -82,10 +82,17 @@
 </form>
 -->
 
-<form action="seat/seemystate" method="post">
+<form action="dj" method="post">
     学号：<input type="text" name="userid"/><br>
     <input type="submit" vaue="测试">
 </form>
 
+<!--
+<form action="touxiang" method="post" enctype="multipart/form-data">
+    学号：<input type="text" name="userid"/><br>
+    头像：<input type="file" name="touxiangimg"/><br>
+    <input type="submit" vaue="测试">
+</form>
+-->
 </body>
 </html>
