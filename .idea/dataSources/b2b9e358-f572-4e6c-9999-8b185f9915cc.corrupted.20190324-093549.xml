@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="library@localhost">
-  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.11">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.14">
     <root id="1">
-      <ServerVersion>8.0.12</ServerVersion>
+      <ServerVersion>8.0.13</ServerVersion>
       <DefaultEngine>InnoDB</DefaultEngine>
       <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
       <DefaultCasing>lower/lower</DefaultCasing>
     </root>
-    <schema id="2" parent="1" name="db_survey">
+    <schema id="2" parent="1" name="answer_db">
       <Collation>utf8mb4_0900_ai_ci</Collation>
     </schema>
     <schema id="3" parent="1" name="dream_db">
@@ -1116,118 +1116,59 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="281" parent="5" name="comment"/>
-    <table id="282" parent="5" name="record"/>
-    <table id="283" parent="5" name="reply"/>
-    <table id="284" parent="5" name="seat"/>
-    <table id="285" parent="5" name="tmp_record"/>
-    <table id="286" parent="5" name="user"/>
-    <table id="287" parent="5" name="user_content"/>
-    <column id="288" parent="281" name="comment_id">
+    <table id="281" parent="5" name="record"/>
+    <table id="282" parent="5" name="seat"/>
+    <table id="283" parent="5" name="user"/>
+    <table id="284" parent="5" name="user_content"/>
+    <column id="285" parent="281" name="recordid">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="289" parent="281" name="com_id">
-      <Position>2</Position>
-      <DataType>bigint(20)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="290" parent="281" name="u_id">
-      <Position>3</Position>
-      <DataType>varchar(20)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="291" parent="281" name="content">
-      <Position>4</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="292" parent="281" name="create_date">
-      <Position>5</Position>
-      <DataType>datetime|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="293" parent="281" name="com_id_idx">
-      <ColNames>com_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="294" parent="281" name="u_id_idx">
-      <ColNames>u_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="295" parent="281" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>comment_id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="296" parent="281" name="com_id">
-      <ColNames>com_id</ColNames>
-      <RefSchemaName>library</RefSchemaName>
-      <RefTableName>user_content</RefTableName>
-      <RefColNames>iduser_content</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <foreign-key id="297" parent="281" name="u_id">
-      <ColNames>u_id</ColNames>
-      <RefSchemaName>library</RefSchemaName>
-      <RefTableName>user</RefTableName>
-      <RefColNames>userid</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <column id="298" parent="282" name="recordid">
-      <Position>1</Position>
-      <DataType>int(10)|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="299" parent="282" name="username">
+    <column id="286" parent="281" name="userid">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="300" parent="282" name="seatid">
+    <column id="287" parent="281" name="seatid">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="301" parent="282" name="starttime">
+    <column id="288" parent="281" name="starttime">
       <Position>4</Position>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="302" parent="282" name="endtime">
+    <column id="289" parent="281" name="endtime">
       <Position>5</Position>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="303" parent="282" name="username_idx">
-      <ColNames>username</ColNames>
+    <index id="290" parent="281" name="record_user_">
+      <ColNames>userid</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="304" parent="282" name="seatid_idx">
+    <index id="291" parent="281" name="record_seat_">
       <ColNames>seatid</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="305" parent="282" name="PRIMARY">
+    <key id="292" parent="281" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>recordid</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="306" parent="282" name="username">
-      <ColNames>username</ColNames>
+    <foreign-key id="293" parent="281" name="record_user_">
+      <ColNames>userid</ColNames>
       <RefSchemaName>library</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>userid</RefColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="307" parent="282" name="seatid">
+    <foreign-key id="294" parent="281" name="record_seat_">
       <ColNames>seatid</ColNames>
       <RefSchemaName>library</RefSchemaName>
       <RefTableName>seat</RefTableName>
@@ -1235,259 +1176,153 @@
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <column id="308" parent="283" name="reply_id">
+    <column id="295" parent="282" name="seatid">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="309" parent="283" name="reply_com_id">
+    <column id="296" parent="282" name="location">
       <Position>2</Position>
+      <DataType>char(4)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="297" parent="282" name="classroom">
+      <Position>3</Position>
+      <DataType>char(10)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="298" parent="282" name="seatNumber">
+      <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="310" parent="283" name="reply_u_id">
-      <Position>3</Position>
-      <DataType>varchar(20)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="311" parent="283" name="reply_date">
-      <Position>4</Position>
-      <DataType>datetime|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="312" parent="283" name="reply_content">
+    <column id="299" parent="282" name="state">
       <Position>5</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>char(2)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="313" parent="283" name="reply_com_id_idx">
-      <ColNames>reply_com_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <index id="314" parent="283" name="reply_u_id_idx">
-      <ColNames>reply_u_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="315" parent="283" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>reply_id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="316" parent="283" name="reply_com_id">
-      <ColNames>reply_com_id</ColNames>
-      <RefSchemaName>library</RefSchemaName>
-      <RefTableName>comment</RefTableName>
-      <RefColNames>comment_id</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <foreign-key id="317" parent="283" name="reply_u_id">
-      <ColNames>reply_u_id</ColNames>
-      <RefSchemaName>library</RefSchemaName>
-      <RefTableName>user</RefTableName>
-      <RefColNames>userid</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <column id="318" parent="284" name="seatid">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="319" parent="284" name="location">
-      <Position>2</Position>
-      <DataType>varchar(45)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="320" parent="284" name="classroom">
-      <Position>3</Position>
-      <DataType>varchar(45)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="321" parent="284" name="seatnumber">
-      <Position>4</Position>
-      <DataType>varchar(45)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="322" parent="284" name="state">
-      <Position>5</Position>
-      <DataType>varchar(45)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <key id="323" parent="284" name="PRIMARY">
+    <key id="300" parent="282" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>seatid</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="324" parent="285" name="tmprecordid">
-      <Position>1</Position>
-      <DataType>int(11)|0s</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="325" parent="285" name="tmpseatid">
-      <Position>2</Position>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="326" parent="285" name="starttime">
-      <Position>3</Position>
-      <DataType>datetime|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="327" parent="285" name="status">
-      <Position>4</Position>
-      <DataType>varchar(20)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="328" parent="285" name="username2">
-      <Position>5</Position>
-      <DataType>varchar(25)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <index id="329" parent="285" name="username2_idx">
-      <ColNames>username2</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="330" parent="285" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>tmprecordid</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="331" parent="285" name="tmpseatid">
-      <ColNames>tmprecordid</ColNames>
-      <RefSchemaName>library</RefSchemaName>
-      <RefTableName>seat</RefTableName>
-      <RefColNames>seatid</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <foreign-key id="332" parent="285" name="username2">
-      <ColNames>username2</ColNames>
-      <RefSchemaName>library</RefSchemaName>
-      <RefTableName>user</RefTableName>
-      <RefColNames>userid</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
-    </foreign-key>
-    <column id="333" parent="286" name="userid">
+    <column id="301" parent="283" name="userid">
       <Position>1</Position>
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="334" parent="286" name="college">
+    <column id="302" parent="283" name="college">
       <Position>2</Position>
       <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="335" parent="286" name="classs">
+    <column id="303" parent="283" name="classs">
       <Position>3</Position>
-      <DataType>char(20)|0s</DataType>
+      <DataType>char(32)|0s</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="336" parent="286" name="password">
+    <column id="304" parent="283" name="birthday">
       <Position>4</Position>
-      <DataType>varchar(50)|0s</DataType>
+      <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="337" parent="286" name="birthday">
+    <column id="305" parent="283" name="email">
       <Position>5</Position>
-      <DataType>varchar(45)|0s</DataType>
+      <DataType>varchar(20)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="338" parent="286" name="email">
+    <column id="306" parent="283" name="gender">
       <Position>6</Position>
-      <DataType>varchar(45)|0s</DataType>
+      <DataType>varchar(2)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="339" parent="286" name="gender">
+    <column id="307" parent="283" name="password">
       <Position>7</Position>
-      <DataType>varchar(45)|0s</DataType>
+      <DataType>varchar(50)|0s</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="340" parent="286" name="userlogo">
-      <Position>8</Position>
-      <DataType>varchar(255)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <key id="341" parent="286" name="PRIMARY">
+    <key id="308" parent="283" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>userid</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="342" parent="287" name="iduser_content">
+    <column id="309" parent="284" name="iduser_content">
       <Position>1</Position>
       <DataType>bigint(255)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="343" parent="287" name="user_id">
+    <column id="310" parent="284" name="user_id">
       <Position>2</Position>
-      <DataType>varchar(20)|0s</DataType>
+      <DataType>varchar(255)|0s</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="344" parent="287" name="content_text">
+    <column id="311" parent="284" name="content_text">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="345" parent="287" name="content_img1">
+    <column id="312" parent="284" name="content_img1">
       <Position>4</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="346" parent="287" name="content_img2">
+    <column id="313" parent="284" name="content_img2">
       <Position>5</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="347" parent="287" name="content_img3">
+    <column id="314" parent="284" name="content_img3">
       <Position>6</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="348" parent="287" name="content_img4">
+    <column id="315" parent="284" name="content_img4">
       <Position>7</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="349" parent="287" name="content_img5">
+    <column id="316" parent="284" name="content_img5">
       <Position>8</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="350" parent="287" name="content_img6">
+    <column id="317" parent="284" name="content_img6">
       <Position>9</Position>
-      <DataType>varchar(255)|0s</DataType>
+      <DataType>varchar(45)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="351" parent="287" name="content_date">
+    <column id="318" parent="284" name="content_Date">
       <Position>10</Position>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="352" parent="287" name="user_id_idx">
+    <column id="319" parent="284" name="content_brower">
+      <Position>11</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="320" parent="284" name="user_id_idx">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="353" parent="287" name="PRIMARY">
+    <key id="321" parent="284" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>iduser_content</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="354" parent="287" name="user_id">
+    <foreign-key id="322" parent="284" name="user_id">
       <ColNames>user_id</ColNames>
       <RefSchemaName>library</RefSchemaName>
       <RefTableName>user</RefTableName>
       <RefColNames>userid</RefColNames>
-      <OnUpdate>cascade</OnUpdate>
-      <OnDelete>cascade</OnDelete>
     </foreign-key>
   </database-model>
 </dataSource>

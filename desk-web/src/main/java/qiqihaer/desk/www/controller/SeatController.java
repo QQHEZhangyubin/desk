@@ -75,8 +75,14 @@ public class SeatController {
                            @RequestParam(value = "userid",required = false) String userid,
                            @RequestParam(value = "location",required = false) String location,
                            @RequestParam(value = "classroom",required = false) String classroom,
-                           @RequestParam(value = "seatnumber",required = false) Integer seatnumber){
+                           @RequestParam(value = "seatnumber",required = false) Integer seatnumber,
+                                         @RequestParam(value = "rqcord",required = false) String rqcord){
         Map map = new HashMap<String,Object>();
+        String u = location + classroom;
+        if (!u.equals(rqcord)){
+            map.put("detail","扫描错误二维码");
+            return map;
+        }
         //先查看用户是否已经有座位
         int h = recordService.selectRecordbyuserid(userid);
         if (h == 1){
@@ -118,12 +124,16 @@ public class SeatController {
     @RequestMapping("/changestatus")
     @ResponseBody
     public Map<String,Object> ChangeStatus(Model model,
+                                           @RequestParam(value = "userid",required = false) String userid,
                              @RequestParam(value = "location",required = false) String location,
                              @RequestParam(value = "classroom",required = false) String classroom,
                              @RequestParam(value = "seatnumber",required = false) Integer seatnumber){
         Map map = new HashMap<String,Object>();
-        //根据location，clssroom,seatnumber找到当前座位的状态
-        Seat seat = seatService.QuerySpecial(location, classroom, seatnumber);
+        //根据userid在tmprecord找到参考座位的主键
+        TmpRecord tmp = recordService.selectRecordbyuserid2(userid);
+        Integer seatid = tmp.getTmpseatid();
+        Seat seat = seatService.findSeatbyid(seatid);
+        //Seat seat = seatService.QuerySpecial(location, classroom, seatnumber);
         int flag = seatService.ChooseSeat(seat, "b");
         if (flag == 1){
             logger.info("成功改变座位状态--暂离");
@@ -140,12 +150,17 @@ public class SeatController {
     @RequestMapping("/enduse")
     @ResponseBody
     public Map<String,Object> Enduse(Model model,
+                                       @RequestParam(value = "userid",required = false) String userid,
                                            @RequestParam(value = "location",required = false) String location,
                                            @RequestParam(value = "classroom",required = false) String classroom,
                                            @RequestParam(value = "seatnumber",required = false) Integer seatnumber){
         Map map = new HashMap<String,Object>();
         //根据location，clssroom,seatnumber找到当前座位的状态
-        Seat seat = seatService.QuerySpecial(location, classroom, seatnumber);
+
+        TmpRecord tmp = recordService.selectRecordbyuserid2(userid);
+        Integer seatid = tmp.getTmpseatid();
+        Seat seat = seatService.findSeatbyid(seatid);
+       // Seat seat = seatService.QuerySpecial(location, classroom, seatnumber);
         int flag = seatService.ChooseSeat(seat, "c");
         if (flag == 1){
             logger.info("成功改变座位状态--结束使用");
