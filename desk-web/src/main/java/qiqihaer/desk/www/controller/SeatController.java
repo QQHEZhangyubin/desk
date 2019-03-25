@@ -63,7 +63,7 @@ public class SeatController {
                                               @RequestParam(value = "location",required = false) String location,
                                               @RequestParam(value = "classroom",required = false) String classroom){
 
-        List<Seat> seats = seatService.QueryEmptySeat("东区", "401");
+        List<Seat> seats = seatService.QueryEmptySeat(location, classroom);
         logger.info("查询空位置成功");
         return seats;
 
@@ -79,8 +79,11 @@ public class SeatController {
                                          @RequestParam(value = "rqcord",required = false) String rqcord){
         Map map = new HashMap<String,Object>();
         String u = location + classroom;
+        System.out.println(u);
+        rqcord = rqcord.substring(1,rqcord.length());
+        System.out.println(rqcord);
         if (!u.equals(rqcord)){
-            map.put("detail","扫描错误二维码");
+            map.put("detail","扫描错误二维码!!");
             return map;
         }
         //先查看用户是否已经有座位
