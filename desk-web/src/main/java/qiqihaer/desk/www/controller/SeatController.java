@@ -150,6 +150,32 @@ public class SeatController {
         return map;
     }
 
+    @RequestMapping("/jieshuzanli")
+    @ResponseBody
+    public Map<String,Object> Jieshuzanli(Model model,
+                                           @RequestParam(value = "userid",required = false) String userid,
+                                           @RequestParam(value = "location",required = false) String location,
+                                           @RequestParam(value = "classroom",required = false) String classroom,
+                                           @RequestParam(value = "seatnumber",required = false) Integer seatnumber){
+        Map map = new HashMap<String,Object>();
+        //根据userid在tmprecord找到参考座位的主键
+        TmpRecord tmp = recordService.selectRecordbyuserid2(userid);
+        Integer seatid = tmp.getTmpseatid();
+        Seat seat = seatService.findSeatbyid(seatid);
+        //Seat seat = seatService.QuerySpecial(location, classroom, seatnumber);
+        int flag = seatService.ChooseSeat(seat, "a");
+        if (flag == 1){
+            logger.info("成功改变座位状态--暂离--->恢复");
+            TmpRecord tmprecord = recordService.GetTmpRecordbySeatid(seat);
+            tmprecord.setStatus("a");
+            recordService.updateTmprecord(tmprecord);
+            map.put("change","继续学习吧");
+        }else {
+            map.put("change","恢复座位失败！");
+        }
+        return map;
+    }
+
     @RequestMapping("/enduse")
     @ResponseBody
     public Map<String,Object> Enduse(Model model,

@@ -16,15 +16,17 @@ import qiqihaer.desk.www.service.UserService;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 @Controller
 public class FileUploadController {
     @Autowired
     private UserContentService userContentService;
-    private static final String baseUrl = "http://localhost:8080/photo/";
+    private static final String baseUrl = "http://172.16.63.128:8080/photo/";
     private UserContent userContent;
     @Autowired
     private UserService userService;
@@ -130,10 +132,12 @@ public class FileUploadController {
      */
     @RequestMapping(value = "/upload")
     @ResponseBody
-    public String imageUpload(@RequestParam("file2") MultipartFile[] multipartFiles,
-                              String data2){
+    public Map<String,Object> imageUpload(@RequestParam("file2") MultipartFile[] multipartFiles,
+                                          @RequestParam(value = "userid",required = false) String userid,
+                                          @RequestParam(value = "data2",required = false) String data2){
+        Map map = new HashMap<String, Object>();
         userContent = new UserContent();
-        userContent.setUserId("2016021053");
+        userContent.setUserId(userid);
         userContent.setContentText(data2);
         userContent.setContentDate(new Date());
         try{
@@ -162,12 +166,15 @@ public class FileUploadController {
                     }
                 }
                 userContentService.AddShuoShuo(userContent);
-                return "{\"status\":0,\"desc\":\"成功\"}";
+                map.put("status","success");
+
+            }else {
+                map.put("status","fail");
             }
         }catch (Exception e){
            e.printStackTrace();
         }
-        return "{\"status\":-1,\"desc\":\"失败\"}";
+        return map;
     }
 
     /**
@@ -185,13 +192,15 @@ public class FileUploadController {
         User u = userService.findById(userid);
         String filename = multipartFile.getOriginalFilename();
         //将上传文件保存到一个目标文件中
+        SimpleDateFormat df = new SimpleDateFormat("yyyy_MM_dd_HH_MM_SS");
+        String fileName=df.format(new Date())+".png";
         try {
-            multipartFile.transferTo(new File("E:\\picture",filename));
+            multipartFile.transferTo(new File("E:\\picture",fileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(baseUrl+filename);
-        u.setUserlogo(baseUrl + filename);
+        System.out.println(baseUrl+fileName);
+        u.setUserlogo(baseUrl + fileName);
         int k = userService.updateU(u);
         if (k == 1){
             map.put("status","上传头像成功");
