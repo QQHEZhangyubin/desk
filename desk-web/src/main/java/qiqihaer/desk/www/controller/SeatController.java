@@ -14,6 +14,7 @@ import qiqihaer.desk.www.entitytmp.SeatTwo;
 import qiqihaer.desk.www.service.RecordService;
 import qiqihaer.desk.www.service.SeatService;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -134,18 +135,22 @@ public class SeatController {
         Map map = new HashMap<String,Object>();
         //根据userid在tmprecord找到参考座位的主键
         TmpRecord tmp = recordService.selectRecordbyuserid2(userid);
-        Integer seatid = tmp.getTmpseatid();
-        Seat seat = seatService.findSeatbyid(seatid);
-        //Seat seat = seatService.QuerySpecial(location, classroom, seatnumber);
-        int flag = seatService.ChooseSeat(seat, "b");
-        if (flag == 1){
-            logger.info("成功改变座位状态--暂离");
-            TmpRecord tmprecord = recordService.GetTmpRecordbySeatid(seat);
-            tmprecord.setStatus("b");
-            recordService.updateTmprecord(tmprecord);
-            map.put("change","暂离成功,记得按时回来哦！");
+        if (tmp != null){
+            Integer seatid = tmp.getTmpseatid();
+            Seat seat = seatService.findSeatbyid(seatid);
+            //Seat seat = seatService.QuerySpecial(location, classroom, seatnumber);
+            int flag = seatService.ChooseSeat(seat, "b");
+            if (flag == 1){
+                logger.info("成功改变座位状态--暂离");
+                TmpRecord tmprecord = recordService.GetTmpRecordbySeatid(seat);
+                tmprecord.setStatus("b");
+                recordService.updateTmprecord(tmprecord);
+                map.put("change1","暂离成功,记得按时回来哦！");
+            }else {
+                map.put("change1","暂离失败，请重试！");
+            }
         }else {
-            map.put("change","暂离失败，请重试！");
+            map.put("change1","目前还没有座位呢！");
         }
         return map;
     }
@@ -160,18 +165,22 @@ public class SeatController {
         Map map = new HashMap<String,Object>();
         //根据userid在tmprecord找到参考座位的主键
         TmpRecord tmp = recordService.selectRecordbyuserid2(userid);
-        Integer seatid = tmp.getTmpseatid();
-        Seat seat = seatService.findSeatbyid(seatid);
-        //Seat seat = seatService.QuerySpecial(location, classroom, seatnumber);
-        int flag = seatService.ChooseSeat(seat, "a");
-        if (flag == 1){
-            logger.info("成功改变座位状态--暂离--->恢复");
-            TmpRecord tmprecord = recordService.GetTmpRecordbySeatid(seat);
-            tmprecord.setStatus("a");
-            recordService.updateTmprecord(tmprecord);
-            map.put("change","继续学习吧");
+        if (tmp != null){
+            Integer seatid = tmp.getTmpseatid();
+            Seat seat = seatService.findSeatbyid(seatid);
+            //Seat seat = seatService.QuerySpecial(location, classroom, seatnumber);
+            int flag = seatService.ChooseSeat(seat, "a");
+            if (flag == 1){
+                logger.info("成功改变座位状态--暂离--->恢复");
+                TmpRecord tmprecord = recordService.GetTmpRecordbySeatid(seat);
+                tmprecord.setStatus("a");
+                recordService.updateTmprecord(tmprecord);
+                map.put("change1","继续学习吧");
+            }else {
+                map.put("change1","恢复座位失败！");
+            }
         }else {
-            map.put("change","恢复座位失败！");
+            map.put("change1","目前还没有座位呢！");
         }
         return map;
     }
@@ -184,24 +193,28 @@ public class SeatController {
                                            @RequestParam(value = "classroom",required = false) String classroom,
                                            @RequestParam(value = "seatnumber",required = false) Integer seatnumber){
         Map map = new HashMap<String,Object>();
-        //根据location，clssroom,seatnumber找到当前座位的状态
 
         TmpRecord tmp = recordService.selectRecordbyuserid2(userid);
-        Integer seatid = tmp.getTmpseatid();
-        Seat seat = seatService.findSeatbyid(seatid);
-       // Seat seat = seatService.QuerySpecial(location, classroom, seatnumber);
-        int flag = seatService.ChooseSeat(seat, "c");
-        if (flag == 1){
-            logger.info("成功改变座位状态--结束使用");
-            TmpRecord tmprecord = recordService.GetTmpRecordbySeatid(seat);
-            recordService.deleteTmpRecord(tmprecord);
-            Record re = recordService.getRecordByseatid(seat);
-            re.setEndtime(new Date());
-            recordService.updateRecord(re);
-            map.put("change1","忙碌了一天的学习，放松一下吧！");
+        if (tmp != null){
+            Integer seatid = tmp.getTmpseatid();
+            Seat seat = seatService.findSeatbyid(seatid);
+            // Seat seat = seatService.QuerySpecial(location, classroom, seatnumber);
+            int flag = seatService.ChooseSeat(seat, "c");
+            if (flag == 1){
+                logger.info("成功改变座位状态--结束使用");
+                TmpRecord tmprecord = recordService.GetTmpRecordbySeatid(seat);
+                recordService.deleteTmpRecord(tmprecord);
+                Record re = recordService.getRecordByseatid(seat);
+                re.setEndtime(new Date());
+                recordService.updateRecord(re);
+                map.put("change1","忙碌了一天的学习，放松一下吧！");
+            }else {
+                map.put("change1","暂离失败！");
+            }
         }else {
-            map.put("change1","暂离失败！");
+            map.put("change1","目前还没有座位呢！");
         }
+
         return map;
     }
 
@@ -211,11 +224,21 @@ public class SeatController {
                                          @RequestParam(value = "userid",required = false) String userid){
         Map map = new HashMap<String,Object>();
         TmpRecord tmp = recordService.selectRecordbyuserid2(userid);
-        map.put("starttime",tmp.getStarttime());
-        Seat s = seatService.findSeatbyid(tmp.getTmpseatid());
-        map.put("location",s.getLocation());
-        map.put("classroom",s.getClassroom());
-        map.put("seatnumber",s.getSeatnumber());
+        if (tmp != null){
+            Date starttim = tmp.getStarttime();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String si = simpleDateFormat.format(starttim);
+            map.put("starttime",si);
+            Seat s = seatService.findSeatbyid(tmp.getTmpseatid());
+            map.put("location",s.getLocation());
+            map.put("classroom",s.getClassroom());
+            map.put("seatnumber",s.getSeatnumber());
+        }else {
+            map.put("starttime","无");
+            map.put("location","无");
+            map.put("classroom","无");
+            map.put("seatnumber","无");
+        }
         return map;
     }
 

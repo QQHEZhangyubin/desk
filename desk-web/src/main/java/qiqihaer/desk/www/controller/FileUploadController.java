@@ -126,6 +126,27 @@ public class FileUploadController {
 
     /**
      * 移动端上传，服务端接受
+     * 不带图片
+     * @param
+     * @param userid
+     * @param data2
+     * @return
+     */
+    @RequestMapping(value = "/uploadT")
+    @ResponseBody
+    public Map<String,Object> imageUploadT(@RequestParam(value = "userid",required = false) String userid,
+                                          @RequestParam(value = "data2",required = false) String data2){
+        Map map = new HashMap<String, Object>();
+        userContent = new UserContent();
+        userContent.setUserId(userid);
+        userContent.setContentText(data2);
+        userContent.setContentDate(new Date());
+        userContentService.AddShuoShuo(userContent);
+        map.put("status","success");
+        return map;
+    }
+    /**
+     * 移动端上传，服务端接受
      * @param multipartFiles
      * @param data2
      * @return
