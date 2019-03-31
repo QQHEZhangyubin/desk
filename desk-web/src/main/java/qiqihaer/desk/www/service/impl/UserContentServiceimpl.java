@@ -11,6 +11,7 @@ import qiqihaer.desk.www.entity.Reply;
 import qiqihaer.desk.www.entity.UserContent;
 import qiqihaer.desk.www.service.UserContentService;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -25,9 +26,11 @@ public class UserContentServiceimpl implements UserContentService {
     @Override
     public List<UserContent> PullDownAll() {
         UserContent userContent = new UserContent();
-        RowBounds rowBounds = new RowBounds(0,100);
-        List<UserContent> userContents = userContentMapper.selectByRowBounds(userContent,rowBounds );
-        return userContents;
+        //RowBounds rowBounds = new RowBounds(0,100);
+        //List<UserContent> userContents = userContentMapper.selectByRowBounds(userContent,rowBounds );
+        List<UserContent> u = userContentMapper.select(userContent);
+        Collections.reverse(u);
+        return u;
     }
 
     @Override

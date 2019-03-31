@@ -166,6 +166,10 @@ public class SeatController {
         //根据userid在tmprecord找到参考座位的主键
         TmpRecord tmp = recordService.selectRecordbyuserid2(userid);
         if (tmp != null){
+            if (tmp.getStatus().equals("a")){
+                map.put("change1","当前状态非暂离");
+                return map;
+            }
             Integer seatid = tmp.getTmpseatid();
             Seat seat = seatService.findSeatbyid(seatid);
             //Seat seat = seatService.QuerySpecial(location, classroom, seatnumber);
@@ -175,7 +179,7 @@ public class SeatController {
                 TmpRecord tmprecord = recordService.GetTmpRecordbySeatid(seat);
                 tmprecord.setStatus("a");
                 recordService.updateTmprecord(tmprecord);
-                map.put("change1","继续学习吧");
+                map.put("change1","恢复座位成功，继续学习吧");
             }else {
                 map.put("change1","恢复座位失败！");
             }
@@ -233,11 +237,18 @@ public class SeatController {
             map.put("location",s.getLocation());
             map.put("classroom",s.getClassroom());
             map.put("seatnumber",s.getSeatnumber());
+            if (s.getState().equals("a")){
+                map.put("status","正在使用");
+            }
+            if (s.getState().equals("b")){
+                map.put("status","处于暂离");
+            }
         }else {
             map.put("starttime","无");
             map.put("location","无");
             map.put("classroom","无");
             map.put("seatnumber","无");
+            map.put("status","无座位");
         }
         return map;
     }
