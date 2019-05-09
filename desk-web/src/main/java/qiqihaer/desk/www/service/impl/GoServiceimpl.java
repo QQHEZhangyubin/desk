@@ -42,6 +42,7 @@ public class GoServiceimpl implements GoService {
             tmpPost.setLinkUrl(lp.getLinkUrl());
             tmpPost.setLinkDesc(lp.getLinkDesc());
             tmpPost.setVideoUrl(lp.getVideoUrl());
+            tmpPost.setAuthorId(lp.getAuthorId());
             tmpPost.setVideoImgUrl(lp.getVideoImgUrl());
             Integer author_id = l.get(i).getAuthorId();//得到post表中的author_id
 
@@ -64,6 +65,7 @@ public class GoServiceimpl implements GoService {
                 postImage1.setUrl(poimg.get(j).getUrl());
                 postImage1.setSize(poimg.get(j).getSize());
                 postImage1.setName(poimg.get(j).getName());
+                postImage1.setBelongId(author_id);
                 postImage1.setBelong(lp);
                 postImageList.add(postImage1);
             }
@@ -78,6 +80,9 @@ public class GoServiceimpl implements GoService {
             for (int j = 0; j <pocom.size() ; j++) {
                 PostComment postComment1 = new PostComment();
                 postComment1.setId(pocom.get(j).getId());
+                postComment1.setUserId(pocom.get(j).getUserId());
+                postComment1.setBelongId(pocom.get(j).getBelongId());
+                postComment1.setToReplyUserId(pocom.get(j).getToReplyUserId());
                 postComment1.setType(pocom.get(j).getType());
                 Integer uid = pocom.get(j).getUserId();
                 User uh = userMapper.selectByPrimaryKey(uid);
@@ -101,6 +106,8 @@ public class GoServiceimpl implements GoService {
             for (int j = 0; j <pofav.size() ; j++) {
                 PostFavort p = new PostFavort();
                 p.setId(pofav.get(j).getId());
+                p.setUserId(pofav.get(j).getUserId());
+                p.setBelongId(pofav.get(j).getBelongId());
                 Integer userid = pofav.get(j).getUserId();
                 User u = userMapper.selectByPrimaryKey(userid);
                 p.setUser(u);

@@ -14,13 +14,13 @@
     <input type="submit" vaue="测试">
 </form>
 -->
-<!--
+
 <form action="login" method="post">
     学号：<input type="text" name="userid"/><br>
     密码：<input type="text" name="password"/><br>
     <input type="submit" vaue="测试">
 </form>
--->
+
 <!--
 <form action="regist" method="post" enctype="multipart/form-data">
     学号：<input type="text" name="userId"/><br>
@@ -81,12 +81,12 @@
     <input type="submit" vaue="测试">
 </form>
 -->
-
+<!--
 <form action="dj" method="post">
     学号：<input type="text" name="userid"/><br>
     <input type="submit" vaue="测试">
 </form>
-
+-->
 <!--
 <form action="touxiang" method="post" enctype="multipart/form-data">
     学号：<input type="text" name="userid"/><br>
