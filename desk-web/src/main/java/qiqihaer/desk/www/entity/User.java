@@ -7,6 +7,8 @@ import javax.persistence.Id;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     private String userid;
 
     private String college;
@@ -22,7 +24,13 @@ public class User {
     private String gender;
 
     private String userlogo;
+    public Integer getId() {
+        return id;
+    }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
     public String getUserid() {
         return userid;
     }
