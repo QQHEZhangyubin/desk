@@ -12,26 +12,26 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String content;
+    private String content ;
 
-    private String createTime;
+    private String createTime ;
 
     private Integer type;
 
-    private String linkImg;
+    private String linkImg ;
 
     private String linkTitle;
 
     private Integer authorId;
 
-    private String videoUrl;
+    private String videoUrl ;
 
     private String videoImgUrl;
 
 
-    private String linkUrl;
+    private String linkUrl ;
 
-    private String linkDesc;
+    private String linkDesc ;
 
     @Transient
     private User author;

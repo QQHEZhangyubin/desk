@@ -35,17 +35,19 @@ public class GoServiceimpl implements GoService {
 
             tmpPost.setId(lp.getId());
             tmpPost.setContent(lp.getContent());
-            tmpPost.setCreateTime("54545");
+            tmpPost.setCreateTime(lp.getCreateTime());
             tmpPost.setType(lp.getType());
-            tmpPost.setLinkImg(lp.getLinkImg());
-            tmpPost.setLinkTitle(lp.getLinkTitle());
-            tmpPost.setLinkUrl(lp.getLinkUrl());
-            tmpPost.setLinkDesc(lp.getLinkDesc());
-            tmpPost.setVideoUrl(lp.getVideoUrl());
-            tmpPost.setAuthorId(lp.getAuthorId());
-            tmpPost.setVideoImgUrl(lp.getVideoImgUrl());
-            Integer author_id = l.get(i).getAuthorId();//得到post表中的author_id
 
+            tmpPost.setLinkImg(lp.getLinkImg() == null ? "":lp.getLinkImg());
+            tmpPost.setLinkTitle(lp.getLinkTitle() == null ? "":lp.getLinkTitle());
+            tmpPost.setLinkUrl(lp.getLinkUrl() == null ? "" : lp.getLinkUrl());
+            tmpPost.setLinkDesc(lp.getLinkDesc() == null ? "":lp.getLinkDesc());
+            tmpPost.setVideoUrl(lp.getVideoUrl() == null ? "": lp.getVideoUrl());
+            tmpPost.setAuthorId(lp.getAuthorId());
+            tmpPost.setVideoImgUrl(lp.getVideoImgUrl() == null ? "":lp.getVideoImgUrl());
+
+            Integer author_id = l.get(i).getAuthorId();//得到post表中的author_id
+            Integer belongid = l.get(i).getId();//得到post表中的主键id,作为post_comment,post_favort表的belong_id属相
             User user = new User();
             user.setId(author_id);
             User author = userMapper.selectOne(user);//得到发说说的对象
@@ -56,24 +58,24 @@ public class GoServiceimpl implements GoService {
             tmpPost.setAuthor(author);
 
             PostImage postImage = new PostImage();
-            postImage.setBelongId(author_id);//根据author_id查出所有有关的postimage对象
+            postImage.setBelongId(belongid);//根据belongid查出所有有关的postimage对象
             List<PostImage> poimg = postImageMapper.select(postImage);
             List<PostImage> postImageList = new ArrayList<>();
             for (int j = 0; j <poimg.size() ; j++) {
                 PostImage postImage1 = new PostImage();
                 postImage1.setId(poimg.get(j).getId());
-                postImage1.setUrl(poimg.get(j).getUrl());
-                postImage1.setSize(poimg.get(j).getSize());
-                postImage1.setName(poimg.get(j).getName());
-                postImage1.setBelongId(author_id);
-                postImage1.setBelong(lp);
+                postImage1.setUrl(poimg.get(j).getUrl() == null ? "" : poimg.get(j).getUrl());
+                postImage1.setSize(poimg.get(j).getSize() == null ? "" :poimg.get(j).getSize());
+                postImage1.setName(poimg.get(j).getName() == null ? "" : poimg.get(j).getName());
+                postImage1.setBelongId(belongid);
+                postImage1.setBelong(lp);/////////////
                 postImageList.add(postImage1);
             }
             tmpPost.setPostImages(postImageList);
 
 
             PostComment postComment = new PostComment();
-            postComment.setBelongId(author_id);//根据author_id查出所有有关的postcomment对象
+            postComment.setBelongId(belongid);//根据belongid查出所有有关的postcomment对象
             List<PostComment> pocom = postCommentMapper.select(postComment);
 
             List<PostComment> postComments = new ArrayList<>();
@@ -91,7 +93,7 @@ public class GoServiceimpl implements GoService {
                 User replyuser = userMapper.selectByPrimaryKey(toreplyuserid);
                 postComment1.setToreplyuser(replyuser);
                 postComment1.setContent(pocom.get(j).getContent());
-                postComment1.setBelong(lp);
+                postComment1.setBelong(lp);//////////
                 postComments.add(postComment1);
             }
             tmpPost.setPostComments(postComments);
@@ -99,7 +101,7 @@ public class GoServiceimpl implements GoService {
 
 
             PostFavort postFavort = new PostFavort();
-            postFavort.setBelongId(author_id);
+            postFavort.setBelongId(belongid);
             List<PostFavort> pofav = postFavortMapper.select(postFavort);
 
             List<PostFavort> postFavorts = new ArrayList<>();
@@ -111,7 +113,8 @@ public class GoServiceimpl implements GoService {
                 Integer userid = pofav.get(j).getUserId();
                 User u = userMapper.selectByPrimaryKey(userid);
                 p.setUser(u);
-                Integer belongid = pofav.get(j).getBelongId();
+                ////////
+                //////////
                 p.setBelong(lp);
                 postFavorts.add(p);
             }
@@ -119,5 +122,64 @@ public class GoServiceimpl implements GoService {
             tmp.add(tmpPost);
         }
         return tmp;
+    }
+
+    @Override
+    public int InsertVideoPost(Post post) {
+        return postMapper.insertSelective(post);
+    }
+
+    @Override
+    public Post QueryOneVideoPost(Post post) {
+        Post p = postMapper.selectOne(post);
+        Integer authorid = p.getAuthorId();
+        User Author = userMapper.selectByPrimaryKey(authorid);
+        p.setAuthor(Author);
+        return p;
+    }
+
+    @Override
+    public void InsertImagePost(int authorId, List<String> images) {
+        for (String image : images){
+            PostImage postImage = new PostImage();
+            postImage.setBelongId(authorId);
+            postImage.setName(image);
+            postImage.setUrl(image);
+            postImage.setSize("#l#m#s");
+            postImageMapper.insert(postImage);
+        }
+    }
+
+    @Override
+    public Post QueryOneImagePost(Post post) {
+        Post p = postMapper.selectOne(post);
+        User u = userMapper.selectByPrimaryKey(p.getAuthorId());
+        p.setAuthor(u);
+
+        PostImage postImage = new PostImage();
+        postImage.setBelongId(p.getId());
+        List<PostImage> postImageList = new ArrayList<>();
+        List<PostImage> postimages = postImageMapper.select(postImage);
+        for (PostImage postImage1 : postimages){
+            postImage1.setBelong(p);
+            postImageList.add(postImage1);
+        }
+        p.setPostImages(postImageList);
+        return p;
+    }
+
+    @Override
+    public Post QueryNoImagePost(Post post) {
+        Post p = postMapper.selectOne(post);
+        User author = userMapper.selectByPrimaryKey(p.getAuthorId());
+        p.setAuthor(author);
+        return p;
+    }
+
+    @Override
+    public int FindPostId(Post post) {
+        Post p = postMapper.selectOne(post);
+
+        return p.getId();
     }
 }

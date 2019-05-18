@@ -12,7 +12,7 @@ public class UserServiceimpl implements UserService {
     private UserMapper userMapper;
     @Override
     public int regist(User user) {
-        return userMapper.insert(user);
+        return userMapper.insertSelective(user);
     }
 
     @Override
