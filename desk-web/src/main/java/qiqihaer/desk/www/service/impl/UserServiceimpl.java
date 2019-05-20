@@ -34,4 +34,9 @@ public class UserServiceimpl implements UserService {
     public int updateU(User user) {
         return userMapper.updateByPrimaryKey(user);
     }
+
+    @Override
+    public User findUserbyPrimaryKey(int id) {
+        return userMapper.selectByPrimaryKey(id);
+    }
 }

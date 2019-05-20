@@ -17,6 +17,7 @@ public class PostComment {
     private String content;
 
     private Integer belongId;
+    private Integer ctype;
 
     @Transient
     private int type;
@@ -26,6 +27,14 @@ public class PostComment {
     private User toreplyuser;
     @Transient
     private Post belong;
+
+    public Integer getCtype() {
+        return ctype;
+    }
+
+    public void setCtype(Integer ctype) {
+        this.ctype = ctype;
+    }
 
     public User getUser() {
         return user;

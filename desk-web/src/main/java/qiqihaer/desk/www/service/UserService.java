@@ -20,4 +20,6 @@ public interface UserService {
      * 更新user对象
      */
     int updateU(User user);
+
+    User findUserbyPrimaryKey(int id);
 }

@@ -2,6 +2,7 @@ package qiqihaer.desk.www.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import qiqihaer.desk.www.common.PageHelper;
 import qiqihaer.desk.www.dao.*;
 import qiqihaer.desk.www.entity.User;
 import qiqihaer.desk.www.entitytmp.Post;
@@ -85,7 +86,10 @@ public class GoServiceimpl implements GoService {
                 postComment1.setUserId(pocom.get(j).getUserId());
                 postComment1.setBelongId(pocom.get(j).getBelongId());
                 postComment1.setToReplyUserId(pocom.get(j).getToReplyUserId());
-                postComment1.setType(pocom.get(j).getType());
+
+                //postComment1.setType(pocom.get(j).getType());
+                postComment1.setType(pocom.get(j).getCtype());
+
                 Integer uid = pocom.get(j).getUserId();
                 User uh = userMapper.selectByPrimaryKey(uid);
                 postComment1.setUser(uh);
@@ -181,5 +185,48 @@ public class GoServiceimpl implements GoService {
         Post p = postMapper.selectOne(post);
 
         return p.getId();
+    }
+
+    @Override
+    public int InsertFavort(PostFavort postFavort) {
+        int i = postFavortMapper.insertSelective(postFavort);
+        return i;
+    }
+
+    @Override
+    public int ReturnFavortId(PostFavort postFavort) {
+        PostFavort p = postFavortMapper.selectOne(postFavort);
+        return p.getId();
+    }
+
+    @Override
+    public Post FindPostbyPrimaryKey(int postid) {
+        return postMapper.selectByPrimaryKey(postid);
+    }
+
+    @Override
+    public int DeleteFavort(PostFavort postFavort) {
+        return postFavortMapper.delete(postFavort);
+    }
+
+    @Override
+    public int InsertPostComment(PostComment postComment) {
+        return postCommentMapper.insertSelective(postComment);
+    }
+
+    @Override
+    public PostComment ReturnCommentLastOne() {
+        List<PostComment> j = postCommentMapper.select(new PostComment());
+        return j.get(j.size()-1);
+    }
+
+    @Override
+    public int DeleteComment(int commentId) {
+        return postCommentMapper.deleteByPrimaryKey(commentId);
+    }
+
+    @Override
+    public int DeletePost(Post post) {
+        return postMapper.delete(post);
     }
 }
