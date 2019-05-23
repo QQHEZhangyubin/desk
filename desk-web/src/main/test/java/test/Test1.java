@@ -22,12 +22,12 @@ public class Test1 {
         //获取登录页面信息
            String CAS_URL = "http://172.16.50.71/user_login.html?loginName=2016021051&password=2016021051";
            String htmlDoc = HttpClient.get(CAS_URL);
-           System.out.println(HttpClient.cookieStore.getCookies().get(0).getName());
-           System.out.println(HttpClient.cookieStore.getCookies().get(0).getValue());
+         //  System.out.println(HttpClient.cookieStore.getCookies().get(0).getName());
+         //  System.out.println(HttpClient.cookieStore.getCookies().get(0).getValue());
            Cookie c = HttpClient.cookieStore.getCookies().get(0);
             //获取文档
             Document doc = Jsoup.parse(htmlDoc);
-            System.out.println(doc.toString());
+          //  System.out.println(doc.toString());
 
             String U  = "http://172.16.50.71/personQueryZC_personalDetailQuery.html";
             String U1 = "http://172.16.50.71/attendanceSTTZ_list.html";
@@ -36,68 +36,39 @@ public class Test1 {
             String k = HttpClient.get(U2);
             Document d = Jsoup.parse(k);
             System.out.println(d.toString());
-
             Element j = d.getElementById("tableHeader");
         Elements jl = j.getElementsByClass("grid_header");
-        System.out.println(j.toString());
-        System.out.println(jl.toString());
+        //System.out.println(j.toString());
+       // System.out.println(jl.toString());
 
         for (int i = 0; i <jl.size() ; i++) {
-            //System.out.println(jl.get(i).attributes().toString());
-            System.out.println(jl.get(i).text());
+           // System.out.println(jl.get(i).text());
         }
 
         Element ll = d.getElementById("dataTable");
         Elements p = ll.getElementsByClass("grid_number");
         Elements tt = ll.getElementsByClass("grid_data");
+        List<String> stringList = new ArrayList<>();
         for (int i = 0; i < p.size(); i++) {
-            System.out.println(p.get(i).text());
+            stringList.add(p.get(i).text());
         }
-        ExerciseDataQuery exerciseDataQuery = null;
-        List<ExerciseDataQuery> exerciseDataQueryList = new ArrayList<>();
-        int kk = 1;
+        List<String> strings = new ArrayList<>();
         for (int i = 0; i <tt.size() ; i++) {
+            strings.add(tt.get(i).text());
+        }
+        System.out.println(stringList.size());
+        System.out.println(strings.size());
+        //System.out.println(strings.get(16));
+        for (int jj = 0; jj<stringList.size();jj++){
 
-            if (i%8 != 0 || i == 0  ){
-                exerciseDataQuery = new ExerciseDataQuery();
-                System.out.print(tt.get(i).text()+",");
-                exerciseDataQuery.setName(tt.get(i).text());
-                i++;
-                exerciseDataQuery.setCardId(tt.get(i).text());
-                i++;
-                exerciseDataQuery.setDaTe(tt.get(i).text());
-                i++;
-                exerciseDataQuery.setDateTime(tt.get(i).text());
-                i++;
-                exerciseDataQuery.setIsvalid(tt.get(i).text());
-                i++;
-                i++;
+            ExerciseDataQuery dataQuery = new ExerciseDataQuery();
+            dataQuery.setNumid(Integer.parseInt(stringList.get(jj)));
+            for (int i = 0; i < strings.size(); i++) {
 
-                //exerciseDataQuery.setNumid(kk);
-                //kk++;
-            }else {
-                System.out.println();
-                exerciseDataQueryList.add(exerciseDataQuery);
             }
 
         }
-        System.out.println(exerciseDataQueryList.size());
 
-        //System.out.println(exerciseDataQueryList.get(1).getDateTime());
-
-            //获取字段信息
-           /*
-            String _eventId = doc.select("input[name=_eventId]").attr("value");
-            String username = doc.select("input[name='username']").attr("value");
-            String password = doc.select("input[name='password']").attr("value");
-            String execution = doc.select("input[name='execution'").attr("value");
-            //地区
-            String geolocation = doc.select("input[name=geolocation]").attr("value");
-            String submit = doc.select("input[name=submit]").attr("value");
-
-
-            System.out.println(submit);
-            */
 
 }
 }
