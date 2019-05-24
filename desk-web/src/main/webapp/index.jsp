@@ -2,7 +2,7 @@
 <html>
 <body>
 <h2>注册--测试</h2>
-
+<!--
 <form action="doRegister" method="post">
     学号：<input type="text" name="userid"/><br>
     学院：<input type="text" name="college"/><br>
@@ -13,7 +13,7 @@
     性别：<input type="text" name="gender"/><br>
     <input type="submit" vaue="测试">
 </form>
-
+-->
 <!--
 <form action="login" method="post">
     学号：<input type="text" name="userid"/><br>
@@ -81,12 +81,12 @@
     <input type="submit" vaue="测试">
 </form>
 -->
-<!--
-<form action="dj" method="post">
-    学号：<input type="text" name="userid"/><br>
+
+<form action="queryexercise/zaocao" method="post">
+    学号：<input type="text" name="xuehao"/><br>
     <input type="submit" vaue="测试">
 </form>
--->
+
 <!--
 <form action="touxiang" method="post" enctype="multipart/form-data">
     学号：<input type="text" name="userid"/><br>
