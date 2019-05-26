@@ -28,9 +28,15 @@ public class GoServiceimpl implements GoService {
     private PostImageMapper postImageMapper;
     @Override
     public List<Post> QueryPost(int pageIndex, int pageSize) {
+
         List<Post> tmp = new ArrayList<>();
         List<Post> l = postMapper.select(new Post());
-        for (int i = 0; i <l.size() ; i++) {
+
+        if (l.size()< (pageIndex+1)*pageSize ){
+            return null;
+        }
+        //TODO:缺个分页
+        for (int i = l.size()-1; i >=0 ; i--) {
             Post tmpPost = new Post();
             Post lp = l.get(i);
 

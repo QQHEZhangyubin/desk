@@ -32,7 +32,7 @@ public class GoController {
                                            @RequestParam(value = "pageSize",required = false) String pageSize){
         Map map = new HashMap<String,Object>();
         System.out.println("pageIndex = " + pageIndex + ", pageSize = " + pageSize);
-        List<Post> l = goService.QueryPost(Integer.parseInt("0"), Integer.parseInt("0"));
+        List<Post> l = goService.QueryPost(Integer.parseInt(pageIndex), Integer.parseInt(pageSize));
         //得到post集合
         map.put("Msg","success");
         map.put("Is",100);
@@ -146,7 +146,6 @@ public class GoController {
         postFavort.setBelongId(Integer.parseInt(postId));
         if (1 == goService.InsertFavort(postFavort)){
             int favortid = goService.ReturnFavortId(postFavort);
-
             User user = userService.findUserbyPrimaryKey(Integer.parseInt(userId));
             Post post = goService.FindPostbyPrimaryKey(Integer.parseInt(postId));
             PostFavort postFavort1 = new PostFavort();
