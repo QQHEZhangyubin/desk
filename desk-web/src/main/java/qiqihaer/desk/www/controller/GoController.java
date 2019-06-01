@@ -170,7 +170,7 @@ public class GoController {
         postFavort.setUserId(Integer.parseInt(userId));
         postFavort.setBelongId(Integer.parseInt(postId));
         if (1 == goService.DeleteFavort(postFavort)){
-            map.put("Data",1.0);
+            map.put("Data",Integer.parseInt(userId));//////////////////////
         }
         return map;
     }
@@ -223,7 +223,7 @@ public class GoController {
         map.put("Msg","success");
         map.put("Is",100);
         if (1 == goService.DeleteComment(Integer.parseInt(commentId))){
-            map.put("Data",75.0);
+            map.put("Data",Integer.parseInt(commentId));
         }
         return map;
     }

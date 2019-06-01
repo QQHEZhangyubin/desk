@@ -32,9 +32,12 @@ public class GoServiceimpl implements GoService {
         List<Post> tmp = new ArrayList<>();
         List<Post> l = postMapper.select(new Post());
 
-        if (l.size()< (pageIndex+1)*pageSize ){
-            return null;
+        if (pageIndex !=0 ){
+            if (l.size()< (pageIndex+1)*pageSize ){
+                return null;
+            }
         }
+
         //TODO:缺个分页
         for (int i = l.size()-1; i >=0 ; i--) {
             Post tmpPost = new Post();

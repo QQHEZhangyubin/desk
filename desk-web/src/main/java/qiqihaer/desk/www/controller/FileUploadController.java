@@ -26,7 +26,7 @@ import java.util.Random;
 public class FileUploadController {
     @Autowired
     private UserContentService userContentService;
-    public static final String baseUrl = "http://192.168.0.107:8080/photo/";
+    public static final String baseUrl = "http://192.168.0.114:8080/photo/";
     private UserContent userContent;
     @Autowired
     private UserService userService;
