@@ -1,8 +1,8 @@
 package qiqihaer.desk.www.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import qiqihaer.desk.www.common.PageHelper;
 import qiqihaer.desk.www.dao.*;
 import qiqihaer.desk.www.entity.User;
 import qiqihaer.desk.www.entitytmp.Post;
@@ -29,17 +29,18 @@ public class GoServiceimpl implements GoService {
     @Override
     public List<Post> QueryPost(int pageIndex, int pageSize) {
 
-        List<Post> tmp = new ArrayList<>();
-        List<Post> l = postMapper.select(new Post());
 
+        List<Post> tmp = new ArrayList<>();
+        PageHelper.startPage(pageIndex, pageSize); //开始起始页
+        List<Post> l = postMapper.select(new Post());
+/*
         if (pageIndex !=0 ){
             if (l.size()< (pageIndex+1)*pageSize ){
                 return null;
             }
         }
-
-        //TODO:缺个分页
-        for (int i = l.size()-1; i >=0 ; i--) {
+*/
+        for (int i = 0; i <= l.size()-1 ; i++) {
             Post tmpPost = new Post();
             Post lp = l.get(i);
 

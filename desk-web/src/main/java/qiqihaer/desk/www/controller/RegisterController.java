@@ -39,7 +39,7 @@ public class RegisterController {
             user1.setUserid(userid);
             user1.setCollege(college);
             user1.setClasss(classs);
-            user1.setPassword(MD5Util.encodeToHex(password));
+            user1.setPassword(password);
             user1.setBirthday(birthday);
             user1.setEmail(email);
             user1.setGender(gender);
