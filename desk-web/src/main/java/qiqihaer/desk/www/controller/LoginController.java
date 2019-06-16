@@ -27,7 +27,6 @@ public class LoginController {
                                       @RequestParam(value = "password",required = false) String password){
         Map map = new HashMap<String,Object>();
         System.out.println("登录：userid = " + userid);
-        password = MD5Util.encodeToHex(password);
         User user = userService.login(userid,password);
         if (user!=null){
             log.info("用户登录登录成功");

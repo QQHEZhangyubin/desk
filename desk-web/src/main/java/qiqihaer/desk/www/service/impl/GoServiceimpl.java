@@ -10,6 +10,7 @@ import qiqihaer.desk.www.entitytmp.PostComment;
 import qiqihaer.desk.www.entitytmp.PostFavort;
 import qiqihaer.desk.www.entitytmp.PostImage;
 import qiqihaer.desk.www.service.GoService;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +32,10 @@ public class GoServiceimpl implements GoService {
 
 
         List<Post> tmp = new ArrayList<>();
+        Example example = new Example(Post.class);
+        example.setOrderByClause("id desc");
         PageHelper.startPage(pageIndex, pageSize); //开始起始页
-        List<Post> l = postMapper.select(new Post());
+        List<Post> l =postMapper.selectByExample(example);
 /*
         if (pageIndex !=0 ){
             if (l.size()< (pageIndex+1)*pageSize ){

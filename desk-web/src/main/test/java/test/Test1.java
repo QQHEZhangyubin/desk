@@ -15,6 +15,16 @@ import java.util.regex.Pattern;
 
 public class Test1 {
     @Test
+    public void T110(){
+        String u = "http://pswn9tut0.bkt.clouddn.com/1560662531369.jpg,http://pswn9tut0.bkt.clouddn.com/1560662531381.jpg,http://pswn9tut0.bkt.clouddn.com/1560662531372.jpg,http://pswn9tut0.bkt.clouddn.com/1560662531364.jpg,http://pswn9tut0.bkt.clouddn.com/1560662531370.jpg,http://pswn9tut0.bkt.clouddn.com/1560662531382.jpg";
+        String[] gfdsg = u.split(",");
+        System.out.println(gfdsg.length);
+        List<String> d = Arrays.asList(gfdsg);
+        for (String s : d){
+            System.out.println(s);
+        }
+    }
+    @Test
     public void t1(){
         //预约明天座位的代码
         String url_login = "http://172.16.47.84/Login.aspx?__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=%2FwEPDwUJODE2Mzg3MTk0ZGTiyMF48vnOd3k6J7zu3Z26Lhf%2Bt0nElGTEKl9fwh3L8g%3D%3D&__EVENTVALIDATION=%2FwEWBAKm8rLABwLs0bLrBgLs0fbZDAKM54rGBkCiS2WHGa6%2BEL0Kh6yO5Ah09T75GOA5NPCLw47Aiepp&TextBox1=2016213039&TextBox2=610001&Button1=%E7%99%BB++++++%E5%BD%95";

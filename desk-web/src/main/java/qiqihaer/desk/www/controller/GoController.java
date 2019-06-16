@@ -47,34 +47,43 @@ public class GoController {
                                             @RequestParam(value = "userId",required = false) String userId,
                                             @RequestParam(value = "type",required = false) String type,
                                             @RequestParam(value = "content",required = false) String content,
+                                            @RequestParam(value = "videourl",required = false) String videourl,
+                                            @RequestParam(value = "imgshooturl",required = false) String imgshooturl,
                                             @RequestParam(value = "video" ,required = false) CommonsMultipartFile video,
                                             @RequestParam(value = "videoImg" ,required = false) CommonsMultipartFile videoimg){
         Map map = new HashMap<String,Object>();
         System.out.println(content);
         System.out.println(userId);
         System.out.println(type);
-        System.out.println(video.getOriginalFilename());
-        System.out.println(videoimg.getOriginalFilename());
+        System.out.println(videourl);
+        System.out.println(imgshooturl);
+        //System.out.println(video.getOriginalFilename());
+        //System.out.println(videoimg.getOriginalFilename());
         map.put("Msg","success");
         map.put("Is",100);
+
+        /*
         try {
             video.transferTo(new File("E:\\picture",video.getOriginalFilename()));
             videoimg.transferTo(new File("E:\\picture",videoimg.getOriginalFilename()));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
         Post post = new Post();
         post.setAuthorId(Integer.parseInt(userId));
         post.setCreateTime(new Date()+"");
         post.setContent(content);
-        post.setVideoUrl(FileUploadController.baseUrl + video.getOriginalFilename());
-        post.setVideoImgUrl(FileUploadController.baseUrl + videoimg.getOriginalFilename());
+        //post.setVideoUrl(FileUploadController.baseUrl + video.getOriginalFilename());
+        //post.setVideoImgUrl(FileUploadController.baseUrl + videoimg.getOriginalFilename());
+        post.setVideoUrl(videourl);
+        post.setVideoImgUrl(imgshooturl);
         post.setType(Integer.parseInt(type));
         if (1 == goService.InsertVideoPost(post)){
             Post post1 = new Post();
             post1.setContent(content);
-            post.setVideoUrl(FileUploadController.baseUrl + video.getOriginalFilename());
-            post.setVideoImgUrl(FileUploadController.baseUrl + videoimg.getOriginalFilename());
+            post.setVideoUrl(videourl);
+            post.setVideoImgUrl(imgshooturl);
             post1.setAuthorId(Integer.parseInt(userId));
             Post kj = goService.QueryOneVideoPost(post1);
             map.put("Data",kj);
@@ -87,18 +96,36 @@ public class GoController {
     public Map<String,Object> GetImagePost(@RequestParam(value = "content" ,required = false) String content,
                                            @RequestParam(value = "userId",required = false) String userId,
                                            @RequestParam(value = "type",required = false) String type,
+                                           @RequestParam(value = "imgs",required = false) String imgs,
                                            @RequestParam(value = "haveimg",required = false) String having,
+
                                            @RequestParam(value = "photos",required = false) CommonsMultipartFile []commonsMultipartFiles){
 
         System.out.println(content);
         System.out.println(userId);
         System.out.println(type);
         System.out.println(having);
-        List<String> images = new ArrayList<>();
+        System.out.println(imgs);
+
         Map map = new HashMap<String,Object>();
         map.put("Msg","success");
         map.put("Is",100);
         if (having.equals("have")){
+            String[] ims = imgs.split(",");
+            List<String> d = Arrays.asList(ims);
+
+            Post post = new Post();
+            post.setContent(content);
+            post.setCreateTime(new Date() + "");
+            post.setAuthorId(Integer.parseInt(userId));
+            post.setType(Integer.parseInt(type));
+            if (1 == goService.InsertVideoPost(post)){
+                int postid = goService.FindPostId(post);
+                goService.InsertImagePost(postid,d);
+                Post pl = goService.QueryOneImagePost(post);
+                map.put("Data",pl);
+            }
+            /*
             for(CommonsMultipartFile c: commonsMultipartFiles){
                 try {
                     c.transferTo(new File("E:\\picture",c.getOriginalFilename()));
@@ -118,6 +145,7 @@ public class GoController {
                 Post pl = goService.QueryOneImagePost(post);
                 map.put("Data",pl);
             }
+            */
         }else {
             Post post = new Post();
             post.setContent(content);

@@ -230,4 +230,27 @@ public class FileUploadController {
         }
         return map;
     }
+
+    /**
+     * 将上传到七牛云的图片url保存到自己服务器数据库
+     * @param userid
+     * @return
+     */
+    @RequestMapping(value = "/uploadtouxiang2")
+    @ResponseBody
+    public HashMap<String,Object>  uploadTouxiang(@RequestParam(value = "touxiangurl") String touxiangurl,
+                                                  @RequestParam(value = "userid") String userid){
+        HashMap<String, Object> map = new HashMap<>();
+        System.out.println(userid);
+        System.out.println(touxiangurl);
+        User u = userService.findById(userid);
+        u.setUserlogo(touxiangurl);
+        int k = userService.updateU(u);
+        if (k == 1){
+            map.put("status","上传头像成功");
+        }else {
+            map.put("status","上传头像失败");
+        }
+        return map;
+    }
 }
