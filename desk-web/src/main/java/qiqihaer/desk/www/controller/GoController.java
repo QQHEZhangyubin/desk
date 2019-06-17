@@ -149,6 +149,7 @@ public class GoController {
         }else {
             Post post = new Post();
             post.setContent(content);
+            post.setCreateTime(new Date() + "");
             post.setAuthorId(Integer.parseInt(userId));
             post.setType(Integer.parseInt(type));
             if (1 == goService.InsertVideoPost(post)){

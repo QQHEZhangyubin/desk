@@ -36,17 +36,13 @@ public class GoServiceimpl implements GoService {
         example.setOrderByClause("id desc");
         PageHelper.startPage(pageIndex, pageSize); //开始起始页
         List<Post> l =postMapper.selectByExample(example);
-/*
-        if (pageIndex !=0 ){
-            if (l.size()< (pageIndex+1)*pageSize ){
-                return null;
-            }
-        }
-*/
+        System.out.println(l.size());
+          if (l.size() < 10 && pageIndex !=1){
+              return null;
+          }
         for (int i = 0; i <= l.size()-1 ; i++) {
             Post tmpPost = new Post();
             Post lp = l.get(i);
-
             tmpPost.setId(lp.getId());
             tmpPost.setContent(lp.getContent());
             tmpPost.setCreateTime(lp.getCreateTime());
