@@ -16,7 +16,7 @@
         <!--注意这里要写成PageInterceptor, 5.0之前的版本都是写PageHelper, 5.0之后要换成PageInterceptor-->
         <plugin interceptor="com.github.pagehelper.PageInterceptor">
             <!--<property name="helperDialect" value="mysql" />-->
-            <property name="reasonable" value="true" />
+            <property name="reasonable" value="false" />
         </plugin>
         <plugin interceptor="tk.mybatis.mapper.mapperhelper.MapperInterceptor">
             <!--主键自增回写方法,默认值MYSQL,详细说明请看文档HSQLDB-->

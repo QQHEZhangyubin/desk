@@ -37,9 +37,9 @@ public class GoServiceimpl implements GoService {
         PageHelper.startPage(pageIndex, pageSize); //开始起始页
         List<Post> l =postMapper.selectByExample(example);
         System.out.println(l.size());
-          if (l.size() < 10 && pageIndex !=1){
+          /*if (l.size() < 10 && pageIndex !=1){
               return null;
-          }
+          }*/
         for (int i = 0; i <= l.size()-1 ; i++) {
             Post tmpPost = new Post();
             Post lp = l.get(i);
